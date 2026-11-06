@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import ThemeSwitcher from './ThemeSwitcher.vue'
 
 const meta = {
-  title: 'App/ThemeSwitcher',
+  title: 'Layout/ThemeSwitcher',
   component: ThemeSwitcher,
 } satisfies Meta<typeof ThemeSwitcher>
 

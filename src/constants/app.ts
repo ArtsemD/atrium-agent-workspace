@@ -1,4 +1,4 @@
-import type { AppRoute, Theme } from '@/types/app'
+import type { AppRoute, Scene, Theme } from '@/types/app'
 
 export const LOCALE = 'en-GB'
 export const CURRENCY = 'EUR'
@@ -15,6 +15,7 @@ export const THEME_STORAGE_KEY = 'atrium-theme'
 
 /** URL query parameters that jump straight to a state (screenshots, impatient reviewers) */
 export const QUERY = { theme: 'theme', scene: 'scene' } as const
+export const SCENES: readonly Scene[] = ['approval', 'done']
 
 export const ROUTES: readonly AppRoute[] = [
   { id: 'run', label: 'Agent run', icon: 'sparkles', title: 'Reconcile October invoices', crumb: 'Finance ops' },

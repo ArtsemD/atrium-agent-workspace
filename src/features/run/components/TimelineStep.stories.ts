@@ -3,7 +3,7 @@ import { SAMPLE_STEP_DONE, SAMPLE_STEP_RUNNING } from '@/data/samples'
 import TimelineStep from './TimelineStep.vue'
 
 const meta = {
-  title: 'Agent/TimelineStep',
+  title: 'Run/TimelineStep',
   component: TimelineStep,
   args: { ...SAMPLE_STEP_DONE, last: true },
   argTypes: {

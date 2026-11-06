@@ -22,3 +22,7 @@ export type Scene = 'approval' | 'done'
 export interface AppSidebarProps {
   current: RouteId
 }
+
+export interface ThemePreviewCardProps {
+  theme: Theme
+}

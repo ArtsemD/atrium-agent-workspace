@@ -3,7 +3,7 @@ import { fn } from 'storybook/test'
 import RunRating from './RunRating.vue'
 
 const meta = {
-  title: 'Agent/RunRating',
+  title: 'Run/RunRating',
   component: RunRating,
   args: { rating: null, onRate: fn() },
   argTypes: { rating: { control: 'inline-radio', options: [null, 'useful', 'not-useful'] } },

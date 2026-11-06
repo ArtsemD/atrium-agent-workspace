@@ -1,3 +1,5 @@
+import type { DeepReadonly } from 'vue'
+import type { useAgentRun } from '@/features/run/composables/useAgentRun'
 import type { IconName } from './ui'
 
 export type StepKind = 'plan' | 'read' | 'analyze' | 'proposal' | 'apply' | 'result'
@@ -117,4 +119,56 @@ export interface RatingOption {
   icon: IconName
   /** Classes applied while this option is selected */
   activeClass: string
+}
+
+/** What useAgentRun returns: the run's state and the actions on it */
+export type AgentRun = ReturnType<typeof useAgentRun>
+
+export interface RunStatsProps {
+  tokens: number
+  costEur: number
+  elapsedMs: number
+}
+
+export interface RunHeaderProps extends RunStatsProps {
+  agent: Agent
+  status: RunStatus
+  activity: string
+}
+
+export interface RunHeaderEmits {
+  stop: []
+  reset: []
+}
+
+export interface RunComposerProps {
+  agentName: string
+  defaultTask: string
+}
+
+export interface RunComposerEmits {
+  start: [task: string]
+}
+
+export interface RunTimelineProps {
+  task: string
+  status: RunStatus
+  steps: DeepReadonly<RunStep[]>
+  rating: Rating | null
+}
+
+export interface RunTimelineEmits extends ProposedWritesEmits, RunRatingEmits {}
+
+export interface RunAccessCardProps {
+  access: readonly AccessScope[]
+}
+
+export interface RunBudgetCardProps {
+  team: TeamBudget
+  /** Cost of the current run, added on top of the team's month so far */
+  runCostEur: number
+}
+
+export interface RunModelCardProps {
+  model: string
 }

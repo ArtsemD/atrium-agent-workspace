@@ -1,0 +1,125 @@
+/*
+ * Design tokens.
+ * Semantic tokens only: components never reference raw colours, so a theme is
+ * just a new block below. Every text/background pair is checked for WCAG AA
+ * (4.5:1 for body text) in each theme; see README › Tokens.
+ */
+
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f4f4f1;
+  --backdrop-a: rgb(99 102 241 / 0.16);
+  --backdrop-b: rgb(20 184 166 / 0.12);
+  --surface: rgb(255 255 255 / 0.72);
+  --surface-solid: #ffffff;
+  --surface-sunken: rgb(15 15 25 / 0.04);
+  --line: rgb(15 15 25 / 0.09);
+  --line-strong: rgb(15 15 25 / 0.16);
+  --fg: #16161a;
+  --fg-2: #4f4f58;
+  --fg-3: #6b6b75;
+  --accent: #4f46e5;
+  --accent-fg: #ffffff;
+  --accent-soft: rgb(79 70 229 / 0.1);
+  --ok: #15803d;
+  --ok-soft: rgb(21 128 61 / 0.1);
+  --warn: #a16207;
+  --warn-soft: rgb(202 138 4 / 0.14);
+  --danger: #b91c1c;
+  --danger-soft: rgb(185 28 28 / 0.09);
+  --chart-1: #4f46e5;
+  --chart-2: #0d9488;
+  --shadow: 0 1px 2px rgb(15 15 25 / 0.04), 0 8px 24px -12px rgb(15 15 25 / 0.12);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0c0d11;
+  --backdrop-a: rgb(99 102 241 / 0.22);
+  --backdrop-b: rgb(20 184 166 / 0.12);
+  --surface: rgb(24 25 32 / 0.66);
+  --surface-solid: #17181e;
+  --surface-sunken: rgb(255 255 255 / 0.04);
+  --line: rgb(255 255 255 / 0.08);
+  --line-strong: rgb(255 255 255 / 0.16);
+  --fg: #ededf1;
+  --fg-2: #b4b4bd;
+  --fg-3: #8d8d98;
+  --accent: #8b87ff;
+  --accent-fg: #0c0d11;
+  --accent-soft: rgb(139 135 255 / 0.14);
+  --ok: #4ade80;
+  --ok-soft: rgb(74 222 128 / 0.12);
+  --warn: #facc15;
+  --warn-soft: rgb(250 204 21 / 0.12);
+  --danger: #f87171;
+  --danger-soft: rgb(248 113 113 / 0.12);
+  --chart-1: #8b87ff;
+  --chart-2: #2dd4bf;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -12px rgb(0 0 0 / 0.5);
+}
+
+[data-theme='dusk'] {
+  color-scheme: dark;
+  --bg: #120f1f;
+  --backdrop-a: rgb(236 72 153 / 0.2);
+  --backdrop-b: rgb(124 58 237 / 0.26);
+  --surface: rgb(32 26 52 / 0.6);
+  --surface-solid: #1d1830;
+  --surface-sunken: rgb(255 255 255 / 0.05);
+  --line: rgb(255 255 255 / 0.09);
+  --line-strong: rgb(255 255 255 / 0.18);
+  --fg: #f3f0fa;
+  --fg-2: #c3bcd6;
+  --fg-3: #9d95b3;
+  --accent: #f0a6ca;
+  --accent-fg: #1b1328;
+  --accent-soft: rgb(240 166 202 / 0.14);
+  --ok: #6ee7b7;
+  --ok-soft: rgb(110 231 183 / 0.12);
+  --warn: #fcd34d;
+  --warn-soft: rgb(252 211 77 / 0.12);
+  --danger: #fca5a5;
+  --danger-soft: rgb(252 165 165 / 0.12);
+  --chart-1: #f0a6ca;
+  --chart-2: #a78bfa;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -12px rgb(0 0 0 / 0.55);
+}
+
+[data-theme='sand'] {
+  color-scheme: light;
+  --bg: #f3eee5;
+  --backdrop-a: rgb(234 88 12 / 0.12);
+  --backdrop-b: rgb(202 138 4 / 0.12);
+  --surface: rgb(255 252 246 / 0.74);
+  --surface-solid: #fffcf6;
+  --surface-sunken: rgb(60 40 10 / 0.05);
+  --line: rgb(60 40 10 / 0.1);
+  --line-strong: rgb(60 40 10 / 0.18);
+  --fg: #231c12;
+  --fg-2: #54483a;
+  --fg-3: #6f6252;
+  --accent: #b4430f;
+  --accent-fg: #fffcf6;
+  --accent-soft: rgb(180 67 15 / 0.1);
+  --ok: #3f7a2a;
+  --ok-soft: rgb(63 122 42 / 0.12);
+  --warn: #92600a;
+  --warn-soft: rgb(202 138 4 / 0.15);
+  --danger: #a3271a;
+  --danger-soft: rgb(163 39 26 / 0.1);
+  --chart-1: #b4430f;
+  --chart-2: #3f7a2a;
+  --shadow: 0 1px 2px rgb(60 40 10 / 0.05), 0 8px 24px -12px rgb(60 40 10 / 0.16);
+}
+
+:root {
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 18px;
+  --blur: 22px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 140ms;
+  --dur: 240ms;
+}

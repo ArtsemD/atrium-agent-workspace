@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import BaseIcon from '@/components/base/BaseIcon.vue'
 import { ROUTES } from '@/constants/app'
-import type { AppSidebarProps } from '@/components/layout/types'
+import { ACTIVE_ITEM_CLASS } from './constants'
+import type { AppSidebarProps } from './types'
 import ThemeSwitcher from './ThemeSwitcher.vue'
 
 defineProps<AppSidebarProps>()
@@ -25,11 +26,7 @@ defineProps<AppSidebarProps>()
           :href="`#/${r.id}`"
           :aria-current="current === r.id ? 'page' : undefined"
           class="flex flex-col items-center justify-center gap-1 rounded-md px-1 py-2 text-center text-meta transition-colors md:h-9 md:flex-row md:justify-start md:gap-2.5 md:px-2.5 md:py-0 md:text-left md:text-body"
-          :class="
-            current === r.id
-              ? 'bg-surface-solid font-medium text-fg shadow-sm'
-              : 'text-fg-2 hover:bg-sunken hover:text-fg'
-          "
+          :class="current === r.id ? ACTIVE_ITEM_CLASS : 'text-fg-2 hover:bg-sunken hover:text-fg'"
         >
           <BaseIcon :name="r.icon" />{{ r.label }}
         </a>

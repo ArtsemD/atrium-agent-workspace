@@ -1,20 +1,11 @@
 <script setup lang="ts">
 import BaseIcon from '@/components/base/BaseIcon.vue'
 import { ICON_SIZE } from '@/constants/icons'
-import type { RatingOption, RunRatingEmits, RunRatingProps } from '@/types/agent'
+import { RATING_OPTIONS } from '@/features/run/constants'
+import type { RunRatingEmits, RunRatingProps } from '@/features/run/types'
 
 defineProps<RunRatingProps>()
 const emit = defineEmits<RunRatingEmits>()
-
-const OPTIONS: readonly RatingOption[] = [
-  { id: 'useful', label: 'Useful', icon: 'thumbUp', activeClass: 'border-ok/40 bg-ok-soft text-ok' },
-  {
-    id: 'not-useful',
-    label: 'Not useful',
-    icon: 'thumbDown',
-    activeClass: 'border-danger/40 bg-danger-soft text-danger',
-  },
-]
 </script>
 
 <template>
@@ -22,7 +13,7 @@ const OPTIONS: readonly RatingOption[] = [
     <p class="text-body-sm text-fg-2">Was this run useful? It counts towards the team's Spend → Value.</p>
     <div class="ml-auto flex gap-1.5" role="group" aria-label="Rate this run">
       <button
-        v-for="opt in OPTIONS"
+        v-for="opt in RATING_OPTIONS"
         :key="opt.id"
         type="button"
         :aria-pressed="rating === opt.id"

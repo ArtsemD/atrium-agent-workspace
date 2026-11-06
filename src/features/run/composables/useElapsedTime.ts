@@ -1,6 +1,6 @@
 import { computed, onBeforeUnmount, ref, watch, type ComputedRef, type DeepReadonly } from 'vue'
-import { ELAPSED_TICK_MS } from '@/constants/app'
-import type { RunState } from '@/types/agent'
+import { ELAPSED_TICK_MS } from '@/features/run/constants'
+import type { RunState } from '@/features/run/types'
 import { elapsedMs, isLive } from '../utils/run-status'
 
 /** Elapsed run time that ticks while the run is live and stops when it ends */

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SpendKpiGridProps } from '@/types/spend'
+import type { SpendKpiGridProps } from '@/features/spend/types'
 import KpiTile from './KpiTile.vue'
 import KpiTileSkeleton from './KpiTileSkeleton.vue'
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import BaseButton from '@/components/base/BaseButton.vue'
-import { THEME_SWATCHES } from '@/constants/app'
-import type { ThemePreviewCardProps } from '@/types/app'
+import { THEME_SWATCHES } from '@/features/system/constants'
+import type { ThemePreviewCardProps } from '@/features/system/types'
 
 defineProps<ThemePreviewCardProps>()
 </script>

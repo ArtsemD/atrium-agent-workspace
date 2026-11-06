@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import { fn } from 'storybook/test'
-import { DEFAULT_TASK } from '@/data/run-script'
+import { DEFAULT_TASK } from '@/features/run/data/run-script'
 import { SAMPLE_STEP_DONE, SAMPLE_STEP_RUNNING, SAMPLE_WRITES } from '@/data/samples'
 import RunTimeline from './RunTimeline.vue'
 

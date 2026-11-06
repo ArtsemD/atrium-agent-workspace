@@ -1,5 +1,5 @@
 import type { DeepReadonly } from 'vue'
-import type { RunState, RunStatus } from '@/types/agent'
+import type { RunState, RunStatus } from '@/features/run/types'
 
 /** The run is doing something or waiting on a person; the timer runs and it can be stopped */
 export const isLive = (status: RunStatus): boolean => {

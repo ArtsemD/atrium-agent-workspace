@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
-import { ACTUAL, COMPANY_BUDGET_EUR, COST_PER_USEFUL_RUN_TREND, TEAMS, forecast } from '@/data/spend'
+import { ACTUAL, COMPANY_BUDGET_EUR, COST_PER_USEFUL_RUN_TREND, TEAMS, forecast } from '@/features/spend/data/spend'
 import { buildKpis } from '../utils/spend-metrics'
 import SpendKpiGrid from './SpendKpiGrid.vue'
 

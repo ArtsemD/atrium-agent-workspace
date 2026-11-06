@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type { RunStatsProps } from '@/types/agent'
-import { formatDuration, formatEur, formatTokens } from '@/utils/format'
+import type { RunStatsProps } from '@/features/run/types'
+import { formatDuration, formatTokens } from '@/features/run/utils/format'
+import { formatEur } from '@/utils/format'
 
 defineProps<RunStatsProps>()
 </script>

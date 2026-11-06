@@ -1,5 +1,5 @@
-import type { ChartFrame, ChartHover, ChartPoint, ChartScales, ForecastPoint } from '@/types/spend'
-import { clamp } from '@/utils/math'
+import type { ChartFrame, ChartHover, ChartPoint, ChartScales, ForecastPoint } from '@/features/spend/types'
+import { clamp } from '@/features/spend/utils/math'
 
 /** Rounds up to the next whole step, so the top gridline is a round number */
 export const niceCeil = (value: number, step: number): number => {

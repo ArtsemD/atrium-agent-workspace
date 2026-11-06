@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import BaseCard from '@/components/base/BaseCard.vue'
 import BaseMeter from '@/components/base/BaseMeter.vue'
-import type { RunBudgetCardProps } from '@/types/agent'
+import type { RunBudgetCardProps } from '@/features/run/types'
 import { formatEur } from '@/utils/format'
 
 const props = defineProps<RunBudgetCardProps>()

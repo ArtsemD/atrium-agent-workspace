@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount } from 'vue'
-import { ACCESS, AGENT, DEFAULT_TASK, EUR_PER_MILLION_TOKENS, RUN_SCRIPT, TEAM } from '@/data/run-script'
+import { ACCESS, AGENT, DEFAULT_TASK, EUR_PER_MILLION_TOKENS, RUN_SCRIPT, TEAM } from '@/features/run/data/run-script'
 import RunAccessCard from '@/features/run/components/RunAccessCard.vue'
 import RunBudgetCard from '@/features/run/components/RunBudgetCard.vue'
 import RunComposer from '@/features/run/components/RunComposer.vue'

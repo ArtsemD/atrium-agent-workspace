@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { clamp, ratio, sumBy } from './math'
+import { clamp, ratio, sumBy } from '@/features/spend/utils/math'
 
 describe('math', () => {
   it('sums a field', () => expect(sumBy([{ n: 2 }, { n: 3 }], (i) => i.n)).toBe(5))

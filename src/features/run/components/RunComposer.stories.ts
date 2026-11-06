@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import { fn } from 'storybook/test'
-import { AGENT, DEFAULT_TASK } from '@/data/run-script'
+import { AGENT, DEFAULT_TASK } from '@/features/run/data/run-script'
 import RunComposer from './RunComposer.vue'
 
 const meta = {

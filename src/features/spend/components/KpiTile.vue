@@ -1,13 +1,8 @@
 <script setup lang="ts">
-import type { KpiTileProps } from '@/types/spend'
+import { KPI_HINT_CLASS } from '@/features/spend/constants'
+import type { KpiTileProps } from '@/features/spend/types'
 
 withDefaults(defineProps<KpiTileProps>(), { tone: 'neutral' })
-
-const HINT_CLASS: Record<NonNullable<KpiTileProps['tone']>, string> = {
-  neutral: 'text-fg-2',
-  ok: 'text-ok',
-  warn: 'text-warn',
-}
 </script>
 
 <template>
@@ -15,7 +10,7 @@ const HINT_CLASS: Record<NonNullable<KpiTileProps['tone']>, string> = {
   <div class="panel p-3.5 sm:p-4">
     <p class="eyebrow min-h-8 sm:min-h-0">{{ label }}</p>
     <p class="num mt-2 text-heading sm:text-display font-semibold tracking-tight text-fg">{{ value }}</p>
-    <p v-if="hint" class="mt-1 min-h-10 text-body-sm sm:min-h-0" :class="HINT_CLASS[tone]">{{ hint }}</p>
+    <p v-if="hint" class="mt-1 min-h-10 text-body-sm sm:min-h-0" :class="KPI_HINT_CLASS[tone]">{{ hint }}</p>
     <slot />
   </div>
 </template>

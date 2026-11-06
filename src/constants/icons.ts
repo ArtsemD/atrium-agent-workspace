@@ -24,13 +24,3 @@ export const ICON_PATHS = {
 } as const
 
 export const ICON_SIZE = { sm: 14, md: 16, lg: 20 } as const
-export const ICON_STROKE_WIDTH = 1.8
-/** Loading spinner geometry on the same 24×24 grid */
-export const SPINNER = {
-  viewBox: '0 0 24 24',
-  center: 12,
-  radius: 9,
-  stroke: 2.5,
-  trackOpacity: 0.25,
-  arc: 'M21 12a9 9 0 0 0-9-9',
-} as const

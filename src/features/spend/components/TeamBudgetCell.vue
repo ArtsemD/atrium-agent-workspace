@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import BaseMeter from '@/components/base/BaseMeter.vue'
 import { PERCENT } from '@/constants/app'
-import type { TeamBudgetCellProps } from '@/types/spend'
+import type { TeamBudgetCellProps } from '@/features/spend/types'
 import { formatEur } from '@/utils/format'
 import { budgetUsed, isNearLimit } from '../utils/spend-metrics'
 

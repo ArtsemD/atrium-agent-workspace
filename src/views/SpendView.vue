@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import { useSimulatedLoading } from '@/composables/useSimulatedLoading'
-import { SPEND_LOADING_MS } from '@/constants/app'
-import { ACTUAL, COMPANY_BUDGET_EUR, COST_PER_USEFUL_RUN_TREND, MONTH, TEAMS, forecast } from '@/data/spend'
+import { SPEND_LOADING_MS } from '@/features/spend/constants'
+import {
+  ACTUAL,
+  COMPANY_BUDGET_EUR,
+  COST_PER_USEFUL_RUN_TREND,
+  MONTH,
+  TEAMS,
+  forecast,
+} from '@/features/spend/data/spend'
 import SpendChartCard from '@/features/spend/components/SpendChartCard.vue'
 import SpendKpiGrid from '@/features/spend/components/SpendKpiGrid.vue'
 import TeamSpendTable from '@/features/spend/components/TeamSpendTable.vue'

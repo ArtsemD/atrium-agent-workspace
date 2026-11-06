@@ -1,5 +1,5 @@
 import type { ComputedRef, Ref } from 'vue'
-import type { IconName } from './ui'
+import type { IconName } from '@/types/ui'
 
 export type ThemeId = 'light' | 'dark' | 'dusk' | 'sand'
 
@@ -16,16 +16,6 @@ export interface AppRoute {
   icon: IconName
   title: string
   crumb: string
-}
-
-export type Scene = 'approval' | 'done'
-
-export interface AppSidebarProps {
-  current: RouteId
-}
-
-export interface ThemePreviewCardProps {
-  theme: Theme
 }
 
 /** What useTheme returns */

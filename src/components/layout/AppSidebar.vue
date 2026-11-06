@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import BaseIcon from '@/components/base/BaseIcon.vue'
 import { ROUTES } from '@/constants/app'
-import type { AppSidebarProps } from '@/types/app'
+import type { AppSidebarProps } from '@/components/layout/types'
 import ThemeSwitcher from './ThemeSwitcher.vue'
 
 defineProps<AppSidebarProps>()

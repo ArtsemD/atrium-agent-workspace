@@ -1,6 +1,6 @@
 import { computed, reactive, readonly } from 'vue'
-import { APPLY_STEP, RESULT_STEP, TOKEN_TICKS_PER_STEP } from '@/constants/run'
-import { RUN_FACTS, RUN_SCRIPT, tokensToEur } from '@/data/run-script'
+import { APPLY_STEP, RESULT_STEP, TOKEN_TICKS_PER_STEP } from '@/features/run/constants'
+import { RUN_FACTS, RUN_SCRIPT, tokensToEur } from '@/features/run/data/run-script'
 import type {
   AgentRun,
   Decision,
@@ -11,7 +11,7 @@ import type {
   RunStep,
   ScriptStep,
   WriteState,
-} from '@/types/agent'
+} from '@/features/run/types'
 
 const wait: Delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 

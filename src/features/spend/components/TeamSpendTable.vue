@@ -2,8 +2,9 @@
 import { useId } from 'vue'
 import BaseSkeleton from '@/components/base/BaseSkeleton.vue'
 import { PERCENT } from '@/constants/app'
-import type { TeamSpendTableProps } from '@/types/spend'
-import { formatEur, formatInteger } from '@/utils/format'
+import type { TeamSpendTableProps } from '@/features/spend/types'
+import { formatEur } from '@/utils/format'
+import { formatInteger } from '@/features/spend/utils/format'
 import { costPerUsefulRun } from '../utils/spend-metrics'
 import TeamBudgetCell from './TeamBudgetCell.vue'
 

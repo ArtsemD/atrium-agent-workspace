@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import type { ForecastPoint, TeamSpend } from '@/types/spend'
+import type { ForecastPoint, TeamSpend } from '@/features/spend/types'
 import { buildKpis, costPerUsefulRun, isNearLimit, isOnTrack } from './spend-metrics'
 
 const team = (spend: number, budget: number): TeamSpend => ({ team: 'T', spend, budget, runs: 100, usefulRate: 0.5 })

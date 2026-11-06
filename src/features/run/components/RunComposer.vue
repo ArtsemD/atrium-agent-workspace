@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import EmptyState from '@/components/base/EmptyState.vue'
-import type { RunComposerEmits, RunComposerProps } from '@/types/agent'
+import type { RunComposerEmits, RunComposerProps } from '@/features/run/types'
 
 const props = defineProps<RunComposerProps>()
 const emit = defineEmits<RunComposerEmits>()

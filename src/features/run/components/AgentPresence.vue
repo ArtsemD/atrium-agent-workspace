@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import BaseIcon from '@/components/base/BaseIcon.vue'
-import type { AgentPresenceProps } from '@/types/agent'
+import type { AgentPresenceProps } from '@/features/run/types'
 
 defineProps<AgentPresenceProps>()
 </script>

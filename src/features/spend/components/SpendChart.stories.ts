@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
-import { ACTUAL, COMPANY_BUDGET_EUR, MONTH, forecast } from '@/data/spend'
+import { ACTUAL, COMPANY_BUDGET_EUR, MONTH, forecast } from '@/features/spend/data/spend'
 import SpendChart from './SpendChart.vue'
 
 const meta = {

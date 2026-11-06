@@ -1,7 +1,7 @@
 import { computed, ref, type Ref } from 'vue'
 import { PERCENT } from '@/constants/app'
-import { CHART } from '@/constants/chart'
-import type { ChartFrame, ChartHoverState, ChartScales, SpendChartProps } from '@/types/spend'
+import { CHART } from '@/features/spend/constants'
+import type { ChartFrame, ChartHoverState, ChartScales, SpendChartProps } from '@/features/spend/types'
 import { hoverPointAt } from '../utils/chart-geometry'
 
 /** Pointer tracking for the spend chart: snaps to the nearest day and places the tooltip */

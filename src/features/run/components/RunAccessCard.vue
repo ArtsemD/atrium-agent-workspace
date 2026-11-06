@@ -3,7 +3,7 @@ import BaseBadge from '@/components/base/BaseBadge.vue'
 import BaseCard from '@/components/base/BaseCard.vue'
 import BaseIcon from '@/components/base/BaseIcon.vue'
 import { ICON_SIZE } from '@/constants/icons'
-import type { RunAccessCardProps } from '@/types/agent'
+import type { RunAccessCardProps } from '@/features/run/types'
 
 defineProps<RunAccessCardProps>()
 </script>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SPINNER } from '@/constants/icons'
+import { SPINNER } from '@/components/base/constants'
 </script>
 
 <template>

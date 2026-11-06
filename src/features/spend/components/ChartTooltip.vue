@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ChartTooltipProps } from '@/types/spend'
+import type { ChartTooltipProps } from '@/features/spend/types'
 import { formatEur } from '@/utils/format'
 
 defineProps<ChartTooltipProps>()

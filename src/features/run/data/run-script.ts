@@ -1,4 +1,4 @@
-import type { AccessScope, Agent, ScriptStep, TeamBudget } from '@/types/agent'
+import type { AccessScope, Agent, ScriptStep, TeamBudget } from '@/features/run/types'
 
 /**
  * A scripted agent run. The demo has no LLM behind it: the run is replayed

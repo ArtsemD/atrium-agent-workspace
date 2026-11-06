@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import BaseCard from '@/components/base/BaseCard.vue'
-import type { RunModelCardProps } from '@/types/agent'
+import type { RunModelCardProps } from '@/features/run/types'
 import { formatEur } from '@/utils/format'
 
 defineProps<RunModelCardProps>()

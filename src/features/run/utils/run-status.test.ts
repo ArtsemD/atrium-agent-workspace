@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import type { RunState } from '@/types/agent'
+import type { RunState } from '@/features/run/types'
 import { describeActivity, elapsedMs, isLive } from './run-status'
 
 const state = (patch: Partial<RunState>): RunState => ({

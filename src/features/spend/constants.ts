@@ -1,3 +1,5 @@
+import type { KpiTone } from '@/features/spend/types'
+
 /**
  * Spend chart geometry in CSS pixels. The chart is drawn at its container's real width,
  * so text stays 12px on a phone. Height follows the aspect ratio but never drops below minHeight
@@ -26,3 +28,13 @@ export const CHART = {
   dash: { forecast: '5 5', budget: '2 4', hover: '2 3' },
   opacity: { band: 0.12, areaTop: 0.22 },
 } as const
+
+/** Hint colour for each KPI tone */
+export const KPI_HINT_CLASS: Record<KpiTone, string> = {
+  neutral: 'text-fg-2',
+  ok: 'text-ok',
+  warn: 'text-warn',
+}
+
+/** Simulated network latency for the Spend view, so its loading state is visible */
+export const SPEND_LOADING_MS = 900

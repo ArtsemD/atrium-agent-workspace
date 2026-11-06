@@ -19,8 +19,13 @@ jobs:
         with: { node-version: 22, cache: npm }
       - run: npm ci
       - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run lint:tokens
+      - run: npm run format:check
       - run: npm test
       - run: npx vite build
+      # Storybook is published next to the demo, at /storybook/
+      - run: npm run build-storybook
       - uses: actions/upload-pages-artifact@v3
         if: github.ref == 'refs/heads/main'
         with: { path: dist }

@@ -1,37 +1,32 @@
 import { ref, watchEffect } from 'vue'
+import { DEFAULT_DARK_THEME, DEFAULT_THEME, QUERY, THEME_STORAGE_KEY, THEMES } from '@/constants/app'
+import type { ThemeId } from '@/types/app'
 
-export const THEMES = [
-  { id: 'light', label: 'Light' },
-  { id: 'dark', label: 'Dark' },
-  { id: 'dusk', label: 'Dusk' },
-  { id: 'sand', label: 'Sand' },
-] as const
-
-export type ThemeId = (typeof THEMES)[number]['id']
-
-const KEY = 'atrium-theme'
-
-function initial(): ThemeId {
-  const fromUrl = new URLSearchParams(location.search).get('theme')
-  if (THEMES.some((t) => t.id === fromUrl)) return fromUrl as ThemeId
-  try {
-    const saved = localStorage.getItem(KEY)
-    if (THEMES.some((t) => t.id === saved)) return saved as ThemeId
-  } catch {
-    /* storage can be blocked; fall through */
-  }
-  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+function isTheme(value: string | null): value is ThemeId {
+  return THEMES.some((t) => t.id === value)
 }
 
-// Module-level so every component shares one theme
-const theme = ref<ThemeId>(initial())
+function initialTheme(): ThemeId {
+  const fromUrl = new URLSearchParams(location.search).get(QUERY.theme)
+  if (isTheme(fromUrl)) return fromUrl
+  try {
+    const saved = localStorage.getItem(THEME_STORAGE_KEY)
+    if (isTheme(saved)) return saved
+  } catch {
+    // Storage can be blocked (private mode, sandboxed previews); fall back to the system preference
+  }
+  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? DEFAULT_DARK_THEME : DEFAULT_THEME
+}
+
+// Module scope: every component shares one theme
+const theme = ref<ThemeId>(initialTheme())
 
 watchEffect(() => {
   document.documentElement.dataset.theme = theme.value
   try {
-    localStorage.setItem(KEY, theme.value)
+    localStorage.setItem(THEME_STORAGE_KEY, theme.value)
   } catch {
-    /* ignore */
+    // Not critical: the theme just won't be remembered
   }
 })
 

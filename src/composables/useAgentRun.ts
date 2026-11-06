@@ -1,53 +1,62 @@
 import { computed, reactive, readonly } from 'vue'
-import { RUN_SCRIPT, tokensToEur, type ProposedWrite, type ScriptStep, type StepKind } from '../data/run-script'
-
-export type RunStatus = 'idle' | 'running' | 'awaiting-approval' | 'completed' | 'stopped'
-export type Decision = 'pending' | 'approved' | 'rejected'
-
-export interface WriteState extends ProposedWrite {
-  decision: Decision
-}
-
-export interface RunStep {
-  id: number
-  kind: StepKind
-  title: string
-  detail: string
-  source?: string
-  status: 'running' | 'done'
-  tokens: number
-  durationMs: number
-  writes?: WriteState[]
-}
-
-export type Delay = (ms: number) => Promise<void>
+import { APPLY_STEP, RESULT_STEP, TOKEN_TICKS_PER_STEP } from '@/constants/run'
+import { RUN_FACTS, RUN_SCRIPT, tokensToEur } from '@/data/run-script'
+import type { Decision, Delay, FinalDecision, Rating, RunState, RunStep, ScriptStep, WriteState } from '@/types/agent'
 
 const wait: Delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
+function initialState(): RunState {
+  return { status: 'idle', task: '', steps: [], startedAt: 0, finishedAt: 0, rating: null }
+}
+
+/** "INV-20418, Halden Supplies" → "INV-20418" */
+function recordId(target: string): string {
+  return target.split(', ')[0] ?? target
+}
+
+function applyStep(approved: readonly WriteState[]): ScriptStep {
+  if (!approved.length) {
+    return {
+      kind: 'apply',
+      title: 'Wrote nothing: every change was rejected',
+      detail: 'The ERP is unchanged.',
+      ...APPLY_STEP.withoutWrites,
+    }
+  }
+  return {
+    kind: 'apply',
+    title: `Wrote ${approved.length} approved ${approved.length === 1 ? 'change' : 'changes'} to the ERP`,
+    detail: approved.map((w) => `${recordId(w.target)}: ${w.field.toLowerCase()} → ${w.to}`).join('; '),
+    source: 'ERP audit log updated',
+    ...APPLY_STEP.withWrites,
+  }
+}
+
+function resultStep(approvedCount: number, proposedCount: number): ScriptStep {
+  return {
+    kind: 'result',
+    title: 'Run complete',
+    detail: `Reconciled ${RUN_FACTS.invoices} invoices. ${approvedCount} fixed, ${proposedCount - approvedCount} left for a person, ${RUN_FACTS.roundingIgnored} rounding differences ignored.`,
+    ...RESULT_STEP,
+  }
+}
 
 /**
  * Plays a scripted agent run step by step, pausing at proposed writes until a
  * person decides on each one. `delay` is injectable so tests run instantly.
  */
-export function useAgentRun(script: ScriptStep[] = RUN_SCRIPT, delay: Delay = wait) {
-  const state = reactive({
-    status: 'idle' as RunStatus,
-    task: '',
-    steps: [] as RunStep[],
-    startedAt: 0,
-    finishedAt: 0,
-    rating: null as 'useful' | 'not-useful' | null,
-  })
+export function useAgentRun(script: readonly ScriptStep[] = RUN_SCRIPT, delay: Delay = wait) {
+  const state = reactive<RunState>(initialState())
 
-  // Bumped on every start/reset so an old, still-sleeping run can't write into a new one
+  // Bumped on every start, stop and reset, so an older run that is still sleeping can't write into a newer one
   let generation = 0
   let resumeAfterApproval: (() => void) | null = null
 
   const tokens = computed(() => state.steps.reduce((sum, s) => sum + s.tokens, 0))
   const costEur = computed(() => tokensToEur(tokens.value))
   const proposal = computed(() => state.steps.find((s) => s.kind === 'proposal'))
-  const pendingCount = computed(
-    () => proposal.value?.writes?.filter((w) => w.decision === 'pending').length ?? 0,
-  )
+  const writes = computed(() => proposal.value?.writes ?? [])
+  const pendingCount = computed(() => writes.value.filter((w) => w.decision === 'pending').length)
 
   async function playStep(step: ScriptStep, gen: number): Promise<RunStep | null> {
     const live = reactive<RunStep>({
@@ -59,16 +68,14 @@ export function useAgentRun(script: ScriptStep[] = RUN_SCRIPT, delay: Delay = wa
       status: 'running',
       tokens: 0,
       durationMs: step.durationMs,
-      writes: step.writes?.map((w) => ({ ...w, decision: 'pending' as Decision })),
+      writes: step.writes?.map((w) => ({ ...w, decision: 'pending' })),
     })
     state.steps.push(live)
 
-    // Tokens tick up while the step runs, like a streamed response
-    const ticks = 6
-    for (let i = 1; i <= ticks; i++) {
-      await delay(step.durationMs / ticks)
+    for (let tick = 1; tick <= TOKEN_TICKS_PER_STEP; tick++) {
+      await delay(step.durationMs / TOKEN_TICKS_PER_STEP)
       if (gen !== generation) return null
-      live.tokens = Math.round((step.tokens * i) / ticks)
+      live.tokens = Math.round((step.tokens * tick) / TOKEN_TICKS_PER_STEP)
     }
     live.status = 'done'
     return live
@@ -76,18 +83,10 @@ export function useAgentRun(script: ScriptStep[] = RUN_SCRIPT, delay: Delay = wa
 
   async function start(task: string) {
     const gen = ++generation
-    Object.assign(state, {
-      status: 'running',
-      task,
-      steps: [],
-      startedAt: Date.now(),
-      finishedAt: 0,
-      rating: null,
-    })
+    Object.assign(state, initialState(), { status: 'running', task, startedAt: Date.now() })
 
     for (const step of script) {
-      const done = await playStep(step, gen)
-      if (!done) return
+      if (!(await playStep(step, gen))) return
       if (step.kind === 'proposal') {
         state.status = 'awaiting-approval'
         await new Promise<void>((resolve) => (resumeAfterApproval = resolve))
@@ -96,47 +95,22 @@ export function useAgentRun(script: ScriptStep[] = RUN_SCRIPT, delay: Delay = wa
       }
     }
 
-    const approved = proposal.value?.writes?.filter((w) => w.decision === 'approved') ?? []
-    const applied = await playStep(
-      {
-        kind: 'apply',
-        title: approved.length
-          ? `Wrote ${approved.length} approved ${approved.length === 1 ? 'change' : 'changes'} to the ERP`
-          : 'Wrote nothing: every change was rejected',
-        detail: approved.length
-          ? approved.map((w) => `${w.target.split(', ')[0]}: ${w.field.toLowerCase()} → ${w.to}`).join('; ')
-          : 'The ERP is unchanged.',
-        source: approved.length ? 'ERP audit log updated' : undefined,
-        durationMs: approved.length ? 1200 : 400,
-        tokens: approved.length ? 1_100 : 200,
-      },
-      gen,
-    )
-    if (!applied) return
-
-    const done = await playStep(
-      {
-        kind: 'result',
-        title: 'Run complete',
-        detail: `Reconciled 312 invoices. ${approved.length} fixed, ${3 - approved.length} left for a person, 11 rounding differences ignored.`,
-        durationMs: 600,
-        tokens: 900,
-      },
-      gen,
-    )
-    if (!done) return
+    const approved = writes.value.filter((w) => w.decision === 'approved')
+    if (!(await playStep(applyStep(approved), gen))) return
+    if (!(await playStep(resultStep(approved.length, writes.value.length), gen))) return
     state.status = 'completed'
     state.finishedAt = Date.now()
   }
 
   function decide(writeId: string, decision: Decision) {
-    const write = proposal.value?.writes?.find((w) => w.id === writeId)
-    if (!write || state.status !== 'awaiting-approval') return
-    write.decision = decision
+    if (state.status !== 'awaiting-approval') return
+    const write = writes.value.find((w) => w.id === writeId)
+    if (write) write.decision = decision
   }
 
-  function decideAll(decision: Exclude<Decision, 'pending'>) {
-    proposal.value?.writes?.forEach((w) => {
+  function decideAll(decision: FinalDecision) {
+    if (state.status !== 'awaiting-approval') return
+    writes.value.forEach((w) => {
       if (w.decision === 'pending') w.decision = decision
     })
   }
@@ -162,10 +136,10 @@ export function useAgentRun(script: ScriptStep[] = RUN_SCRIPT, delay: Delay = wa
   function reset() {
     generation++
     resumeAfterApproval = null
-    Object.assign(state, { status: 'idle', task: '', steps: [], startedAt: 0, finishedAt: 0, rating: null })
+    Object.assign(state, initialState())
   }
 
-  function rate(rating: 'useful' | 'not-useful') {
+  function rate(rating: Rating) {
     if (state.status === 'completed') state.rating = state.rating === rating ? null : rating
   }
 

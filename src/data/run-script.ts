@@ -1,38 +1,18 @@
+import type { AccessScope, Agent, ScriptStep, TeamBudget } from '@/types/agent'
+
 /**
  * A scripted agent run. The demo has no LLM behind it: the run is replayed
  * from this script so it is free, deterministic and works offline. The shape
  * mirrors the events a real backend would stream over WebSocket.
  */
 
-export type StepKind = 'plan' | 'read' | 'analyze' | 'proposal' | 'apply' | 'result'
-
-export interface ProposedWrite {
-  id: string
-  target: string
-  field: string
-  from: string
-  to: string
-  reason: string
-}
-
-export interface ScriptStep {
-  kind: StepKind
-  title: string
-  detail: string
-  /** How long the step "runs" before it completes, in ms */
-  durationMs: number
-  tokens: number
-  source?: string
-  writes?: ProposedWrite[]
-}
-
-export const AGENT = {
+export const AGENT: Agent = {
   name: 'Ledger',
   role: 'Finance agent',
   model: 'Any model via gateway',
 }
 
-export const TEAM = {
+export const TEAM: TeamBudget = {
   name: 'Finance ops',
   monthSpendEur: 1140.2,
   monthBudgetEur: 1500,
@@ -44,11 +24,14 @@ export const EUR_PER_MILLION_TOKENS = 9
 export const DEFAULT_TASK =
   'Reconcile October vendor invoices against purchase orders and fix anything that is wrong in the ERP.'
 
-export const ACCESS = [
-  { scope: 'Billing invoices', mode: 'read' as const },
-  { scope: 'ERP purchase orders', mode: 'read' as const },
-  { scope: 'ERP invoices', mode: 'write' as const },
+export const ACCESS: readonly AccessScope[] = [
+  { scope: 'Billing invoices', mode: 'read' },
+  { scope: 'ERP purchase orders', mode: 'read' },
+  { scope: 'ERP invoices', mode: 'write' },
 ]
+
+/** Facts the scripted run reports in its summary */
+export const RUN_FACTS = { invoices: 312, roundingIgnored: 11 } as const
 
 export const RUN_SCRIPT: ScriptStep[] = [
   {
@@ -116,6 +99,8 @@ export const RUN_SCRIPT: ScriptStep[] = [
   },
 ]
 
+const TOKENS_PER_MILLION = 1_000_000
+
 export function tokensToEur(tokens: number): number {
-  return (tokens / 1_000_000) * EUR_PER_MILLION_TOKENS
+  return (tokens / TOKENS_PER_MILLION) * EUR_PER_MILLION_TOKENS
 }

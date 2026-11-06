@@ -1,22 +1,15 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import Icon from '../ui/Icon.vue'
-import type { IconName } from '../ui/icons'
-import type { StepKind } from '../../data/run-script'
-import { formatDuration, formatTokens } from '../../lib/format'
+import BaseIcon from '@/components/base/BaseIcon.vue'
+import BaseSpinner from '@/components/base/BaseSpinner.vue'
+import { ICON_SIZE } from '@/constants/icons'
+import { formatDuration, formatTokens } from '@/lib/format'
+import type { StepKind, TimelineStepProps } from '@/types/agent'
+import type { IconName } from '@/types/ui'
 
-const props = defineProps<{
-  kind: StepKind
-  title: string
-  detail: string
-  source?: string
-  status: 'running' | 'done'
-  tokens: number
-  durationMs: number
-  last?: boolean
-}>()
+const props = defineProps<TimelineStepProps>()
 
-const ICON: Record<StepKind, IconName> = {
+const STEP_ICON: Record<StepKind, IconName> = {
   plan: 'list',
   read: 'database',
   analyze: 'search',
@@ -24,55 +17,37 @@ const ICON: Record<StepKind, IconName> = {
   apply: 'check',
   result: 'flag',
 }
-const icon = computed(() => ICON[props.kind])
+
+const markerClass = computed(() => {
+  if (props.status === 'running') return 'border-accent bg-accent-soft text-accent'
+  if (props.kind === 'proposal') return 'border-warn/40 bg-warn-soft text-warn'
+  return 'border-line bg-surface-solid text-fg-2'
+})
 </script>
 
 <template>
-  <li class="relative grid grid-cols-[32px_1fr] gap-x-3" style="animation: rise 320ms var(--ease-out) both">
-    <!-- rail -->
+  <li class="rise-in relative grid grid-cols-(--layout-timeline) gap-x-3">
+    <!-- Rail and marker -->
     <div class="relative flex justify-center">
-      <span
-        v-if="!last"
-        class="absolute top-8 bottom-0 w-px bg-line-strong"
-        aria-hidden="true"
-      />
-      <span
-        class="relative z-10 grid size-8 place-items-center rounded-full border"
-        :class="
-          status === 'running'
-            ? 'border-accent bg-accent-soft text-accent'
-            : kind === 'proposal'
-              ? 'border-warn/40 bg-warn-soft text-warn'
-              : 'border-line bg-surface-solid text-fg-2'
-        "
-      >
-        <svg v-if="status === 'running'" class="size-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-opacity=".25" stroke-width="2.5" />
-          <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
-        </svg>
-        <Icon v-else :name="icon" :size="15" />
+      <span v-if="!last" class="absolute top-8 bottom-0 w-px bg-line-strong" aria-hidden="true" />
+      <span class="relative z-10 grid size-8 place-items-center rounded-full border" :class="markerClass">
+        <BaseSpinner v-if="status === 'running'" />
+        <BaseIcon v-else :name="STEP_ICON[kind]" :size="ICON_SIZE.sm" />
       </span>
     </div>
 
     <div class="min-w-0 pb-6">
       <div class="flex min-h-8 flex-wrap items-center gap-x-3 gap-y-1">
-        <p class="text-sm font-semibold text-fg">{{ title }}</p>
-        <span v-if="source" class="inline-flex items-center gap-1 text-xs text-fg-3">
-          <Icon name="lock" :size="12" /> {{ source }}
+        <p class="text-body font-semibold text-fg">{{ title }}</p>
+        <span v-if="source" class="inline-flex items-center gap-1 text-meta text-fg-3">
+          <BaseIcon name="lock" :size="ICON_SIZE.sm" />{{ source }}
         </span>
       </div>
       <p v-if="status === 'running'" class="mt-1 h-5" aria-hidden="true">
-        <span
-          class="inline-block h-3 w-56 max-w-full rounded"
-          style="
-            background: linear-gradient(90deg, var(--surface-sunken) 25%, var(--line-strong) 50%, var(--surface-sunken) 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.4s linear infinite;
-          "
-        />
+        <span class="skeleton inline-block h-3 w-56 max-w-full rounded" />
       </p>
-      <p v-else class="mt-1 text-sm leading-5 text-fg-2">{{ detail }}</p>
-      <p class="num mt-1.5 flex gap-3 text-xs text-fg-3">
+      <p v-else class="mt-1 text-body text-fg-2">{{ detail }}</p>
+      <p class="num mt-1.5 flex gap-3 text-meta text-fg-3">
         <span>{{ formatTokens(tokens) }} tokens</span>
         <span v-if="status === 'done'">{{ formatDuration(durationMs) }}</span>
       </p>

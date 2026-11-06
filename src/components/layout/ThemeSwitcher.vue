@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ACTIVE_ITEM_CLASS } from './constants'
 import { useTheme } from '@/composables/useTheme'
 
 const { theme, themes } = useTheme()
@@ -12,7 +13,7 @@ const { theme, themes } = useTheme()
         v-for="t in themes"
         :key="t.id"
         class="cursor-pointer rounded px-1 py-1 text-center text-meta transition-colors has-focus-visible:outline-2 has-focus-visible:outline-accent"
-        :class="theme === t.id ? 'bg-surface-solid font-medium text-fg shadow-sm' : 'text-fg-2 hover:text-fg'"
+        :class="theme === t.id ? ACTIVE_ITEM_CLASS : 'text-fg-2 hover:text-fg'"
       >
         <input v-model="theme" type="radio" name="theme" :value="t.id" class="sr-only" />{{ t.label }}
       </label>

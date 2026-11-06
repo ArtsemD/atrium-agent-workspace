@@ -132,10 +132,9 @@
   --tracking-eyebrow: 0.06em;
 
   /* Layout */
-  --size-page: 1440px;
+  --size-page: 1680px;
   --size-sidebar: 232px;
   --size-aside: 300px;
-  --size-composer: 560px;
   --size-table-min: 640px;
   --size-meter-col: 44%;
   --size-action-col: 188px;

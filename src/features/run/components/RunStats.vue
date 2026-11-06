@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AnimatedNumber from '@/components/base/AnimatedNumber.vue'
 import type { RunStatsProps } from '@/features/run/types'
 import { formatDuration, formatTokens } from '@/features/run/utils/format'
 import { formatEur } from '@/utils/format'
@@ -14,11 +15,13 @@ defineProps<RunStatsProps>()
   <dl class="m-0 grid flex-1 grid-cols-3 gap-4 text-body lg:flex lg:flex-none lg:gap-6">
     <div>
       <dt class="eyebrow">Tokens</dt>
-      <dd class="num m-0 mt-0.5 w-16 font-semibold text-fg">{{ formatTokens(tokens) }}</dd>
+      <dd class="num m-0 mt-0.5 w-16 font-semibold text-fg">
+        <AnimatedNumber :value="tokens" :format="formatTokens" />
+      </dd>
     </div>
     <div>
       <dt class="eyebrow">Cost</dt>
-      <dd class="num m-0 mt-0.5 w-14 font-semibold text-fg">{{ formatEur(costEur) }}</dd>
+      <dd class="num m-0 mt-0.5 w-14 font-semibold text-fg"><AnimatedNumber :value="costEur" :format="formatEur" /></dd>
     </div>
     <div>
       <dt class="eyebrow">Time</dt>

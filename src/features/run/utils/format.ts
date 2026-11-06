@@ -8,7 +8,7 @@ const compact = new Intl.NumberFormat(LOCALE, { notation: 'compact', maximumFrac
 
 /** 18400 → "18.4k"; small numbers stay exact */
 export const formatTokens = (value: number): string => {
-  return value < COMPACT_FROM ? String(value) : compact.format(value)
+  return value < COMPACT_FROM ? String(Math.round(value)) : compact.format(value)
 }
 
 export const formatDuration = (ms: number): string => {

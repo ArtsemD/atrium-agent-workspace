@@ -52,3 +52,11 @@ export interface BaseCardProps {
   /** sm: compact side card with a small caps heading. md: page section with a title. */
   size?: CardSize
 }
+
+/** Turns a number into the text shown for it */
+export type NumberFormat = (value: number) => string
+
+export interface AnimatedNumberProps {
+  value: number
+  format: NumberFormat
+}

@@ -6,6 +6,10 @@ import { ratio, sumBy } from '@/features/spend/utils/math'
 
 const whole = { whole: true } as const
 
+const eurWhole = (value: number): string => formatEur(value, whole)
+const eurExact = (value: number): string => formatEur(value)
+const wholePercent = (value: number): string => `${Math.round(value)}%`
+
 const usefulRuns = (team: TeamSpend): number => team.runs * team.usefulRate
 
 export const costPerUsefulRun = (team: TeamSpend): number => ratio(team.spend, usefulRuns(team))
@@ -28,12 +32,14 @@ export const buildKpis = ({ actual, forecast, budgetEur, teams, costTrend }: Spe
   return [
     {
       label: 'Spent this month',
-      value: formatEur(spent, whole),
+      value: spent,
+      format: eurWhole,
       hint: `${percent(spent, budgetEur)}% of ${formatEur(budgetEur, whole)} budget`,
     },
     {
       label: 'Month-end forecast',
-      value: formatEur(end?.mid ?? spent, whole),
+      value: end?.mid ?? spent,
+      format: eurWhole,
       hint: end
         ? `likely ${formatEur(end.low, whole)}–${formatEur(end.high, whole)}, ${onTrack ? 'under' : 'over'} budget`
         : undefined,
@@ -41,17 +47,17 @@ export const buildKpis = ({ actual, forecast, budgetEur, teams, costTrend }: Spe
     },
     {
       label: 'Useful runs',
-      value: `${percent(useful, totalRuns)}%`,
+      value: percent(useful, totalRuns),
+      format: wholePercent,
       hint: `${formatInteger(useful)} of ${formatInteger(totalRuns)} rated useful`,
     },
     {
       label: 'Cost per useful run',
-      value: formatEur(
-        ratio(
-          sumBy(teams, (t) => t.spend),
-          useful,
-        ),
+      value: ratio(
+        sumBy(teams, (t) => t.spend),
+        useful,
       ),
+      format: eurExact,
       hint: costTrend,
       tone: 'ok',
     },

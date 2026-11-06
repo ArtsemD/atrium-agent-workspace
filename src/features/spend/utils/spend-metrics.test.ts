@@ -29,5 +29,8 @@ describe('spend metrics', () => {
 
     expect(kpis[1]?.tone).toBe('warn')
     expect(kpis[1]?.hint).toContain('over budget')
+    // Values stay numbers so they can count up; the format turns them into text
+    expect(typeof kpis[0]?.value).toBe('number')
+    expect(kpis[2]?.format(75.4)).toBe('75%')
   })
 })

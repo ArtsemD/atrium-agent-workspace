@@ -1,3 +1,4 @@
+import type { NumberFormat } from '@/components/base/types'
 import type { ComputedRef } from 'vue'
 
 export interface Month {
@@ -34,7 +35,8 @@ export type KpiTone = 'neutral' | 'ok' | 'warn'
 
 export interface KpiTileProps {
   label: string
-  value: string
+  value: number
+  format: NumberFormat
   hint?: string
   tone?: KpiTone
 }

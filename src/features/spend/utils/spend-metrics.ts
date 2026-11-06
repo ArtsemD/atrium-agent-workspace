@@ -5,7 +5,7 @@ import { ratio, sumBy } from '@/utils/math'
 
 const whole = { whole: true } as const
 
-export const usefulRuns = (team: TeamSpend): number => team.runs * team.usefulRate
+const usefulRuns = (team: TeamSpend): number => team.runs * team.usefulRate
 export const costPerUsefulRun = (team: TeamSpend): number => ratio(team.spend, usefulRuns(team))
 export const budgetUsed = (team: TeamSpend): number => ratio(team.spend, team.budget)
 export const isNearLimit = (team: TeamSpend): boolean => budgetUsed(team) >= METER_THRESHOLD.warn

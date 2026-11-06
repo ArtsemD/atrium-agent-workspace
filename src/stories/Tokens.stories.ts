@@ -18,7 +18,6 @@ const COLOR_TOKENS = [
   'danger',
   'danger-soft',
   'chart-1',
-  'chart-2',
 ] as const
 // Full class names so Tailwind finds them when it scans this file
 const TYPE_STEPS = [

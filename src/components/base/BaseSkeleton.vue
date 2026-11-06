@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Placeholder with the same box as the content it stands in for, so nothing shifts on load.
-// Size it with classes at the call site, e.g. <BaseSkeleton class="h-4 w-40" />
+// Size it with classes at the call site. Prefer relative widths, e.g. <BaseSkeleton class="h-4 w-full max-w-40" />
 </script>
 
 <template>

@@ -6,8 +6,10 @@ defineProps<RunStatsProps>()
 </script>
 
 <template>
-  <!-- Fixed widths and tabular figures, so the numbers tick without moving their neighbours -->
-  <!-- Phones: three equal columns across the row. Desktop: a compact inline group. -->
+  <!--
+    Phones: three equal columns across the row. Desktop: a compact inline group.
+    Fixed value widths and tabular figures, so the numbers tick without moving their neighbours.
+  -->
   <dl class="m-0 grid flex-1 grid-cols-3 gap-4 text-body lg:flex lg:flex-none lg:gap-6">
     <div>
       <dt class="eyebrow">Tokens</dt>

@@ -10,7 +10,7 @@ export const ACTUAL: readonly number[] = [
   113, 231, 335, 462, 561, 602, 634, 778, 932, 1080, 1237, 1391, 1451, 1483, 1679, 1885, 2086, 2310,
 ]
 
-export const FORECAST_MODEL: ForecastModel = { perDayEur: 78, spreadLinear: 9, spreadQuadratic: 1.6 }
+const FORECAST_MODEL: ForecastModel = { perDayEur: 78, spreadLinear: 9, spreadQuadratic: 1.6 }
 
 /** Forecast for the rest of the month. The band widens with distance from today: we know less about later days. */
 export function forecast(model: ForecastModel = FORECAST_MODEL): ForecastPoint[] {

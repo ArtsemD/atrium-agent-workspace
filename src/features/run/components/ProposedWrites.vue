@@ -48,7 +48,7 @@ const approved = computed(() => props.writes.filter((w) => w.decision === 'appro
           <p class="mt-1.5 text-body-sm text-fg-2">{{ w.reason }}</p>
         </div>
 
-        <!-- Fixed-width action column, so a row doesn't jump when its buttons turn into a badge -->
+        <!-- From sm a fixed-width action column, so a row doesn't jump when its buttons turn into a badge -->
         <div class="flex h-8 items-center gap-1.5 sm:w-(--size-action-col) sm:justify-end">
           <template v-if="w.decision === 'pending'">
             <BaseButton

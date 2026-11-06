@@ -19,6 +19,7 @@ const COLOR_TOKENS = [
   'danger-soft',
   'chart-1',
 ] as const
+
 // Full class names so Tailwind finds them when it scans this file
 const TYPE_STEPS = [
   'text-caption',

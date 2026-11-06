@@ -1,3 +1,5 @@
+import type { ComputedRef } from 'vue'
+
 export interface Month {
   label: string
   /** Short month name for axis labels, e.g. "Nov" */
@@ -102,4 +104,43 @@ export interface SpendSummaryInput {
 export interface ChartTooltipProps {
   hover: ChartHover
   monthShort: string
+}
+
+/** SVG path data for each layer of the spend chart */
+export interface SpendChartPaths {
+  actual: string
+  actualArea: string
+  forecast: string
+  band: string
+}
+
+/** A single value pinned to a day, such as today's spend */
+export interface DayValue {
+  day: number
+  value: number
+}
+
+/** What useSpendChart returns: everything the chart draws */
+export interface SpendChartModel {
+  frame: ComputedRef<ChartFrame>
+  scales: ComputedRef<ChartScales>
+  paths: ComputedRef<SpendChartPaths>
+  yTicks: ComputedRef<number[]>
+  xTickDays: ComputedRef<readonly number[]>
+  today: ComputedRef<DayValue>
+  summary: ComputedRef<string>
+}
+
+/** Where the chart tooltip sits */
+export interface TooltipPosition {
+  left: string
+  transform: string
+}
+
+/** What useChartHover returns */
+export interface ChartHoverState {
+  hover: ComputedRef<ChartHover | null>
+  tooltipStyle: ComputedRef<TooltipPosition | undefined>
+  onPointerMove: (e: PointerEvent) => void
+  onPointerLeave: () => void
 }

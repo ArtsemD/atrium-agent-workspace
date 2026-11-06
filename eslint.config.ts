@@ -1,3 +1,4 @@
+import stylistic from '@stylistic/eslint-plugin'
 import skipFormatting from 'eslint-config-prettier'
 import pluginVue from 'eslint-plugin-vue'
 import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
@@ -26,6 +27,18 @@ export default defineConfigWithVueTs(
           selector: 'CallExpression[callee.name=/^set(Timeout|Interval)$/] > Literal[raw=/^\\d+$/]',
           message: 'Use a named constant from src/constants for timings.',
         },
+        {
+          selector: 'FunctionExpression',
+          message: 'Use an arrow function.',
+        },
+      ],
+      // Functions are arrow functions assigned to a const
+      'func-style': ['error', 'expression'],
+      'prefer-arrow-callback': 'error',
+      // Every named function states what it returns. Inline callbacks get their type from the call.
+      '@typescript-eslint/explicit-function-return-type': [
+        'error',
+        { allowExpressions: true, allowTypedFunctionExpressions: true, allowHigherOrderFunctions: false },
       ],
     },
   },
@@ -33,5 +46,32 @@ export default defineConfigWithVueTs(
     files: ['**/*.test.ts', '**/*.stories.ts', '.storybook/**'],
     rules: { 'no-restricted-syntax': 'off' },
   },
+  {
+    // Plain JS scripts can't carry type annotations; their return types are in JSDoc
+    files: ['**/*.mjs'],
+    rules: { '@typescript-eslint/explicit-function-return-type': 'off' },
+  },
   skipFormatting,
+  // After Prettier's config, which would otherwise switch `curly` off
+  {
+    plugins: { '@stylistic': stylistic },
+    rules: {
+      // Every if, else and loop body has braces
+      curly: ['error', 'all'],
+      // Blank lines separate steps of logic: declarations, blocks and returns stand apart
+      '@stylistic/padding-line-between-statements': [
+        'error',
+        { blankLine: 'always', prev: 'import', next: '*' },
+        { blankLine: 'any', prev: 'import', next: 'import' },
+        { blankLine: 'always', prev: ['const', 'let'], next: '*' },
+        { blankLine: 'any', prev: ['const', 'let'], next: ['const', 'let'] },
+        { blankLine: 'always', prev: '*', next: ['multiline-const', 'multiline-let'] },
+        { blankLine: 'always', prev: ['multiline-const', 'multiline-let'], next: '*' },
+        { blankLine: 'always', prev: '*', next: ['if', 'for', 'while', 'switch', 'try', 'export'] },
+        { blankLine: 'always', prev: 'block-like', next: '*' },
+        { blankLine: 'any', prev: 'export', next: 'export' },
+        { blankLine: 'always', prev: '*', next: 'return' },
+      ],
+    },
+  },
 )

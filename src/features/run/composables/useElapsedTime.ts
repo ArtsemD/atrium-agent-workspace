@@ -1,10 +1,10 @@
-import { computed, onBeforeUnmount, ref, watch, type DeepReadonly } from 'vue'
+import { computed, onBeforeUnmount, ref, watch, type ComputedRef, type DeepReadonly } from 'vue'
 import { ELAPSED_TICK_MS } from '@/constants/app'
 import type { RunState } from '@/types/agent'
 import { elapsedMs, isLive } from '../utils/run-status'
 
 /** Elapsed run time that ticks while the run is live and stops when it ends */
-export function useElapsedTime(state: DeepReadonly<RunState>) {
+export const useElapsedTime = (state: DeepReadonly<RunState>): ComputedRef<number> => {
   const now = ref(Date.now())
   let timer: number | undefined
 
@@ -12,7 +12,10 @@ export function useElapsedTime(state: DeepReadonly<RunState>) {
     () => isLive(state.status),
     (live) => {
       window.clearInterval(timer)
-      if (live) timer = window.setInterval(() => (now.value = Date.now()), ELAPSED_TICK_MS)
+
+      if (live) {
+        timer = window.setInterval(() => (now.value = Date.now()), ELAPSED_TICK_MS)
+      }
     },
     { immediate: true },
   )

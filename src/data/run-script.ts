@@ -102,6 +102,6 @@ export const RUN_SCRIPT: ScriptStep[] = [
 
 const TOKENS_PER_MILLION = 1_000_000
 
-export function tokensToEur(tokens: number): number {
+export const tokensToEur = (tokens: number): number => {
   return (tokens / TOKENS_PER_MILLION) * EUR_PER_MILLION_TOKENS
 }

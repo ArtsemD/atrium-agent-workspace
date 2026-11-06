@@ -9,26 +9,30 @@ const eurWhole = new Intl.NumberFormat(LOCALE, { style: 'currency', currency: CU
 const compact = new Intl.NumberFormat(LOCALE, { notation: 'compact', maximumFractionDigits: 1 })
 const integer = new Intl.NumberFormat(LOCALE)
 
-export function formatEur(value: number, opts: { whole?: boolean } = {}): string {
+export const formatEur = (value: number, opts: { whole?: boolean } = {}): string => {
   return (opts.whole ? eurWhole : eur).format(value)
 }
 
 /** 18400 → "18.4k"; small numbers stay exact */
-export function formatTokens(value: number): string {
+export const formatTokens = (value: number): string => {
   return value < COMPACT_FROM ? String(value) : compact.format(value)
 }
 
-export function formatInteger(value: number): string {
+export const formatInteger = (value: number): string => {
   return integer.format(Math.round(value))
 }
 
-export function formatDuration(ms: number): string {
+export const formatDuration = (ms: number): string => {
   const s = Math.max(0, Math.round(ms / MS_PER_SECOND))
-  if (s < SECONDS_PER_MINUTE) return `${s}s`
+
+  if (s < SECONDS_PER_MINUTE) {
+    return `${s}s`
+  }
+
   return `${Math.floor(s / SECONDS_PER_MINUTE)}m ${String(s % SECONDS_PER_MINUTE).padStart(2, '0')}s`
 }
 
 /** Whole-number percentage; 0 when max is 0 */
-export function percent(value: number, max: number): number {
+export const percent = (value: number, max: number): number => {
   return max <= 0 ? 0 : Math.round((value / max) * PERCENT)
 }

@@ -19,8 +19,14 @@ const STEP_ICON: Record<StepKind, IconName> = {
 }
 
 const markerClass = computed(() => {
-  if (props.status === 'running') return 'border-accent bg-accent-soft text-accent'
-  if (props.kind === 'proposal') return 'border-warn/40 bg-warn-soft text-warn'
+  if (props.status === 'running') {
+    return 'border-accent bg-accent-soft text-accent'
+  }
+
+  if (props.kind === 'proposal') {
+    return 'border-warn/40 bg-warn-soft text-warn'
+  }
+
   return 'border-line bg-surface-solid text-fg-2'
 })
 </script>

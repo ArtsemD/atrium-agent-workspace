@@ -10,8 +10,10 @@ const emit = defineEmits<RunComposerEmits>()
 const task = ref(props.defaultTask)
 const trimmed = computed(() => task.value.trim())
 
-function submit() {
-  if (trimmed.value) emit('start', trimmed.value)
+const submit = (): void => {
+  if (trimmed.value) {
+    emit('start', trimmed.value)
+  }
 }
 </script>
 

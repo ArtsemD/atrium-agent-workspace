@@ -1,5 +1,4 @@
-import type { DeepReadonly } from 'vue'
-import type { useAgentRun } from '@/features/run/composables/useAgentRun'
+import type { ComputedRef, DeepReadonly } from 'vue'
 import type { IconName } from './ui'
 
 export type StepKind = 'plan' | 'read' | 'analyze' | 'proposal' | 'apply' | 'result'
@@ -125,7 +124,19 @@ export interface RatingOption {
 }
 
 /** What useAgentRun returns: the run's state and the actions on it */
-export type AgentRun = ReturnType<typeof useAgentRun>
+export interface AgentRun {
+  state: DeepReadonly<RunState>
+  tokens: ComputedRef<number>
+  costEur: ComputedRef<number>
+  pendingCount: ComputedRef<number>
+  start: (task: string) => Promise<void>
+  decide: (writeId: string, decision: Decision) => void
+  decideAll: (decision: FinalDecision) => void
+  confirmDecisions: () => void
+  stop: () => void
+  reset: () => void
+  rate: (rating: Rating) => void
+}
 
 export interface RunStatsProps {
   tokens: number

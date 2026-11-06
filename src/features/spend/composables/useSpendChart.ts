@@ -1,14 +1,15 @@
 import { computed, type Ref } from 'vue'
 import { CHART } from '@/constants/chart'
-import type { ChartFrame, ChartPoint, SpendChartProps } from '@/types/spend'
+import type { ChartFrame, ChartPoint, SpendChartModel, SpendChartProps } from '@/types/spend'
 import { createScales, niceCeil, ticks } from '../utils/chart-geometry'
 import { describeSpendChart } from '../utils/spend-metrics'
 
 /** Everything the spend chart draws, derived from its props and the width it has */
-export function useSpendChart(props: SpendChartProps, measuredWidth: Ref<number>) {
+export const useSpendChart = (props: SpendChartProps, measuredWidth: Ref<number>): SpendChartModel => {
   const frame = computed<ChartFrame>(() => {
     const peak = Math.max(props.budgetEur * CHART.headroom, ...props.forecast.map((f) => f.high))
     const width = measuredWidth.value || CHART.width
+
     return {
       width,
       height: Math.max(CHART.minHeight, Math.round((width * CHART.height) / CHART.width)),
@@ -17,11 +18,13 @@ export function useSpendChart(props: SpendChartProps, measuredWidth: Ref<number>
       yMax: niceCeil(peak, CHART.yTickStepEur),
     }
   })
+
   const scales = computed(() => createScales(frame.value))
 
   const paths = computed(() => {
     const s = scales.value
     const actual: ChartPoint[] = props.actual.map((v, i) => [i + 1, v])
+
     return {
       actual: s.linePath(actual),
       actualArea: s.areaPath(actual),

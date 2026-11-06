@@ -23,6 +23,7 @@ describe('run status', () => {
     const steps = [
       { id: 1, kind: 'read', title: 'Reading invoices', detail: '', status: 'running', tokens: 0, durationMs: 0 },
     ] as const
+
     expect(describeActivity(state({ status: 'running', steps: [...steps] }), 0)).toBe('Reading invoices…')
   })
 

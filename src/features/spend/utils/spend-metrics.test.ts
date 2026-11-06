@@ -26,6 +26,7 @@ describe('spend metrics', () => {
       teams: [team(500, 1000)],
       costTrend: '',
     })
+
     expect(kpis[1]?.tone).toBe('warn')
     expect(kpis[1]?.hint).toContain('over budget')
   })

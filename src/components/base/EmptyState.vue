@@ -7,12 +7,13 @@ defineProps<EmptyStateProps>()
 </script>
 
 <template>
-  <div class="flex flex-col items-center px-0 py-8 text-center sm:px-6 sm:py-12">
+  <div class="flex flex-col items-center px-0 py-4 text-center sm:px-6 sm:py-12">
     <div class="mb-4 grid size-11 place-items-center rounded-xl bg-accent-soft text-accent">
       <BaseIcon :name="icon" :size="ICON_SIZE.lg" />
     </div>
     <p class="text-title font-semibold text-fg">{{ title }}</p>
     <p v-if="description" class="mt-1 max-w-sm text-body text-fg-2">{{ description }}</p>
-    <div v-if="$slots.default" class="mt-5"><slot /></div>
+    <!-- Full width, so content such as a form can use the space and cap itself with max-w -->
+    <div v-if="$slots.default" class="mt-5 flex w-full justify-center"><slot /></div>
   </div>
 </template>

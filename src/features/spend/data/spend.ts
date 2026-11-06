@@ -1,4 +1,4 @@
-import type { ForecastModel, ForecastPoint, Month, TeamSpend } from '@/types/spend'
+import type { ForecastModel, ForecastPoint, Month, TeamSpend } from '@/features/spend/types'
 
 /** Fictional November spend for one company, used by the Spend view */
 

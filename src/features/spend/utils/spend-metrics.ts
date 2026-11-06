@@ -1,7 +1,8 @@
 import { METER_THRESHOLD } from '@/constants/thresholds'
-import type { ForecastPoint, KpiTileProps, Month, SpendSummaryInput, TeamSpend } from '@/types/spend'
-import { formatEur, formatInteger, percent } from '@/utils/format'
-import { ratio, sumBy } from '@/utils/math'
+import type { ForecastPoint, KpiTileProps, Month, SpendSummaryInput, TeamSpend } from '@/features/spend/types'
+import { formatEur } from '@/utils/format'
+import { formatInteger, percent } from '@/features/spend/utils/format'
+import { ratio, sumBy } from '@/features/spend/utils/math'
 
 const whole = { whole: true } as const
 

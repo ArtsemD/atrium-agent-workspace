@@ -31,16 +31,16 @@ Four themes (light, dark, dusk and sand) come from one set of semantic tokens. T
 
 ## Engineering decisions
 
-| Decision                                                                                                                                                                                                                                                                                                                              | Where                                                            |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| No magic values. Colours, font sizes, layout sizes and durations are tokens (`--fg-2`, `--font-size-body-sm`, `--size-aside`, `--dur-fast`) mapped into Tailwind. Non-visual numbers (timings, thresholds, chart geometry) are named constants. A script fails CI on arbitrary Tailwind values, raw colours and static inline styles. | `src/styles`, `src/constants`, `scripts/check-design-tokens.mjs` |
-| Types live apart from components. Props and emits are interfaces in `src/types`, components declare them with `defineProps<BaseButtonProps>()`.                                                                                                                                                                                       | `src/types`                                                      |
-| Every component has stories for each of its states (small parts such as the chart legend, tooltip and KPI skeleton are shown inside their parent's stories), rendered in all four themes from the Storybook toolbar, with the accessibility addon checking each one.                                                                  | `*.stories.ts`, `.storybook`                                     |
-| Nothing shifts as it loads. Skeletons take the exact box of their content, the approval row keeps a fixed-width action column, and numbers use tabular figures.                                                                                                                                                                       | `BaseSkeleton.vue`, `ProposedWrites.vue`                         |
-| The run is a state machine: idle, running, awaiting approval, completed, stopped. It replays a scripted run in the same shape a backend would stream over WebSocket, and a generation counter stops a cancelled run from writing into a new one.                                                                                      | `src/features/run/composables/useAgentRun.ts`                    |
-| The chart is hand-built SVG: geometry is pure functions with tests, the component only draws. It is theme-aware through CSS variables, with an accessible text summary and hover by nearest day. One chart did not need a chart library.                                                                                              | `src/features/spend`                                             |
-| Responsive down to 375px. On phones the sidebar becomes a top bar with tab-style navigation, the team table becomes cards, and the chart is drawn at its container's real width so axis text stays 12px. Views use a `minmax(0, 1fr)` column, so no child can push the page wider than the screen.                                    | `AppSidebar.vue`, `TeamSpendTable.vue`, `useSpendChart.ts`       |
-| Accessible by default: skip link, visible focus, a live region for the agent's activity, `role="meter"` for budgets and `aria-pressed` for ratings. Reduced motion is respected.                                                                                                                                                      | throughout                                                       |
+| Decision                                                                                                                                                                                                                                                                                                                              | Where                                                           |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| No magic values. Colours, font sizes, layout sizes and durations are tokens (`--fg-2`, `--font-size-body-sm`, `--size-aside`, `--dur-fast`) mapped into Tailwind. Non-visual numbers (timings, thresholds, chart geometry) are named constants. A script fails CI on arbitrary Tailwind values, raw colours and static inline styles. | `src/styles`, `constants.ts`, `scripts/check-design-tokens.mjs` |
+| Types live apart from components. Props and emits are interfaces in the feature's `types.ts`, components declare them with `defineProps<BaseButtonProps>()`.                                                                                                                                                                          | `types.ts`                                                      |
+| Every component has stories for each of its states (small parts such as the chart legend, tooltip and KPI skeleton are shown inside their parent's stories), rendered in all four themes from the Storybook toolbar, with the accessibility addon checking each one.                                                                  | `*.stories.ts`, `.storybook`                                    |
+| Nothing shifts as it loads. Skeletons take the exact box of their content, the approval row keeps a fixed-width action column, and numbers use tabular figures.                                                                                                                                                                       | `BaseSkeleton.vue`, `ProposedWrites.vue`                        |
+| The run is a state machine: idle, running, awaiting approval, completed, stopped. It replays a scripted run in the same shape a backend would stream over WebSocket, and a generation counter stops a cancelled run from writing into a new one.                                                                                      | `src/features/run/composables/useAgentRun.ts`                   |
+| The chart is hand-built SVG: geometry is pure functions with tests, the component only draws. It is theme-aware through CSS variables, with an accessible text summary and hover by nearest day. One chart did not need a chart library.                                                                                              | `src/features/spend`                                            |
+| Responsive down to 375px. On phones the sidebar becomes a top bar with tab-style navigation, the team table becomes cards, and the chart is drawn at its container's real width so axis text stays 12px. Views use a `minmax(0, 1fr)` column, so no child can push the page wider than the screen.                                    | `AppSidebar.vue`, `TeamSpendTable.vue`, `useSpendChart.ts`      |
+| Accessible by default: skip link, visible focus, a live region for the agent's activity, `role="meter"` for budgets and `aria-pressed` for ratings. Reduced motion is respected.                                                                                                                                                      | throughout                                                      |
 
 ## Try a state directly
 
@@ -54,6 +54,8 @@ Add these to the demo URL:
 
 Code is grouped by feature. A view only wires data to sections; logic lives in composables and pure utils, which are unit tested.
 
+Where a file goes depends on who uses it. Types, constants, utils and data used by one feature live inside that feature, next to its components. Only what several features share goes in the top-level folders.
+
 ```
 src/
   views/              thin pages: RunView, SpendView, SystemView
@@ -62,28 +64,35 @@ src/
       components/     RunHeader, RunStats, RunComposer, RunTimeline, TimelineStep, ProposedWrites,
                       RunRating, AgentPresence, RunAccessCard, RunBudgetCard, RunModelCard
       composables/    useAgentRun (state machine), useElapsedTime, useScenePlayback
-      utils/          run-status (activity text, elapsed time), run-scene (?scene=…)
+      utils/          run-status, run-scene (?scene=…), format (tokens, durations)
+      data/           the scripted run
+      types.ts        run domain, props and emits
+      constants.ts    step icons, rating options, status badges, timings
     spend/
       components/     SpendKpiGrid, KpiTile, KpiTileSkeleton, SpendChartCard, SpendChart, ChartTooltip,
                       ChartLegend, TeamSpendTable, TeamBudgetCell
       composables/    useSpendChart (scales and paths), useChartHover
-      utils/          spend-metrics (KPIs, cost per useful run), chart-geometry (scales, paths)
-    system/
-      components/     ThemePreviewCard, ControlsShowcase
+      utils/          spend-metrics, chart-geometry, math, format (integers, percent)
+      data/           fictional November spend
+      types.ts        spend domain, chart and props
+      constants.ts    chart geometry, KPI hint colours
+    system/           ThemePreviewCard, ControlsShowcase, theme swatches
   components/
-    base/             shared UI kit: BaseCard, BaseButton, BaseBadge, BaseMeter, BaseIcon,
-                      BaseSkeleton, BaseSpinner, EmptyState
+    base/             shared UI kit (BaseCard, BaseButton, BaseBadge, BaseMeter, BaseIcon, BaseSkeleton,
+                      BaseSpinner, EmptyState) with its own types.ts and constants.ts
     layout/           AppSidebar, ThemeSwitcher
   composables/        shared: useTheme, useHashRoute, useSimulatedLoading, useElementWidth
-  utils/              shared pure helpers: format, math
-  types/              interfaces and unions: props, emits, domain models
-  constants/          named values that are not design tokens (icons, timings, thresholds, chart geometry)
+  utils/              shared: formatEur
+  types/              shared: themes, routes, icon names, tones
+  constants/          shared: themes, routes, icons, meter thresholds, locale
+  data/               samples used by both Storybook and the Components page
   styles/             tokens.css (four themes) and main.css (Tailwind mapping)
-  data/               fictional run script, spend data, samples for stories
   stories/            Foundations: rules, colour tokens, type scale
 ```
 
-Conventions follow the Vue style guide: multi-word component names, a `Base` prefix for the shared kit, `<script setup>` with type-based props and emits. Components are presentational where they can be: they take data through props and report back through emits, so each one has stories for its states. Code style: every `if` has braces, functions are arrow functions with an explicit return type (composables return interfaces from `src/types`), and blank lines separate declarations, blocks and returns. ESLint enforces all of it.
+Conventions follow the Vue style guide: multi-word component names, a `Base` prefix for the shared kit, `<script setup>` with type-based props and emits. Components are presentational where they can be: they take data through props and report back through emits, so each one has stories for its states. Static data such as class maps and option lists is a constant, never declared inside a component.
+
+Code style: every `if` has braces, functions are arrow functions with an explicit return type (composables return declared interfaces), and blank lines separate declarations, blocks and returns. ESLint enforces it.
 
 ## Stack
 

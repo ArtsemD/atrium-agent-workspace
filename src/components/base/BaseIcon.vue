@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ICON_PATHS, ICON_SIZE, ICON_STROKE_WIDTH } from '@/constants/icons'
-import type { BaseIconProps } from '@/types/ui'
+import { ICON_PATHS, ICON_SIZE } from '@/constants/icons'
+import { ICON_STROKE_WIDTH } from '@/components/base/constants'
+import type { BaseIconProps } from '@/components/base/types'
 
 withDefaults(defineProps<BaseIconProps>(), { size: ICON_SIZE.md })
 </script>

@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { PERCENT } from '@/constants/app'
 import { METER_THRESHOLD } from '@/constants/thresholds'
-import type { BaseMeterProps } from '@/types/ui'
+import type { BaseMeterProps } from '@/components/base/types'
 
 const props = withDefaults(defineProps<BaseMeterProps>(), { size: 'md' })
 

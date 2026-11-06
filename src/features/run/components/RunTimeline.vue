@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { RunTimelineEmits, RunTimelineProps } from '@/types/agent'
+import type { RunTimelineEmits, RunTimelineProps } from '@/features/run/types'
 import ProposedWrites from './ProposedWrites.vue'
 import RunRating from './RunRating.vue'
 import TimelineStep from './TimelineStep.vue'

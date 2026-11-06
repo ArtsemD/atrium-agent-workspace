@@ -1,8 +1,7 @@
 import { onMounted } from 'vue'
-import { SCENE_FLUSH_LIMIT } from '@/constants/run'
-import { DEFAULT_TASK } from '@/data/run-script'
-import type { AgentRun } from '@/types/agent'
-import type { Scene } from '@/types/app'
+import { SCENE_FLUSH_LIMIT } from '@/features/run/constants'
+import { DEFAULT_TASK } from '@/features/run/data/run-script'
+import type { AgentRun, Scene } from '@/features/run/types'
 
 /** Lets queued microtasks run until the condition holds, with a hard limit */
 const settle = async (until: () => boolean): Promise<void> => {

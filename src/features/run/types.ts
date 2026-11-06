@@ -1,5 +1,5 @@
 import type { ComputedRef, DeepReadonly } from 'vue'
-import type { IconName } from './ui'
+import type { IconName, Tone } from '@/types/ui'
 
 export type StepKind = 'plan' | 'read' | 'analyze' | 'proposal' | 'apply' | 'result'
 export type RunStatus = 'idle' | 'running' | 'awaiting-approval' | 'completed' | 'stopped'
@@ -188,4 +188,11 @@ export interface RunModelCardProps {
   gateway: string
   /** Blended rate the run's cost is calculated at */
   eurPerMillionTokens: number
+}
+
+export type Scene = 'approval' | 'done'
+
+export interface StatusBadge {
+  tone: Tone
+  label: string
 }

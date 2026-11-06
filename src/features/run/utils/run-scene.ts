@@ -1,6 +1,6 @@
-import { QUERY, SCENES } from '@/constants/app'
-import type { Delay } from '@/types/agent'
-import type { Scene } from '@/types/app'
+import { QUERY } from '@/constants/app'
+import { SCENES } from '@/features/run/constants'
+import type { Delay, Scene } from '@/features/run/types'
 
 const isScene = (value: string | null): value is Scene => SCENES.some((s) => s === value)
 

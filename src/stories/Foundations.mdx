@@ -6,12 +6,13 @@ import { Meta } from '@storybook/addon-docs/blocks'
 
 Components never use raw values. Every colour, size, duration and font size comes from a token in
 `src/styles/tokens.css`, mapped to Tailwind utilities in `src/styles/main.css`. Numbers that are not
-visual (timings, thresholds, chart geometry) are named constants in `src/constants`.
+visual (timings, thresholds, chart geometry) are named constants: in the feature's `constants.ts` when one
+feature uses them, in `src/constants` when several do.
 
 | Rule                                                                                | Enforced by                                   |
 | ----------------------------------------------------------------------------------- | --------------------------------------------- |
 | No Tailwind arbitrary values (`w-[300px]`), no raw colours, no static inline styles | `npm run lint:tokens`                         |
-| Props and emits are typed with interfaces from `src/types`                          | `vue/define-props-declaration`, review        |
+| Props and emits are typed with interfaces from the feature's `types.ts`             | `vue/define-props-declaration`, review        |
 | Base components start with `Base`, every component name has two words               | `vue/multi-word-component-names`              |
 | Timers use named constants                                                          | `no-restricted-syntax` in `eslint.config.ts`  |
 | Every `if` has braces                                                               | `curly`                                       |

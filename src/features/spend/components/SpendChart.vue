@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useTemplateRef } from 'vue'
 import { useElementWidth } from '@/composables/useElementWidth'
-import { CHART } from '@/constants/chart'
-import type { SpendChartProps } from '@/types/spend'
+import { CHART } from '@/features/spend/constants'
+import type { SpendChartProps } from '@/features/spend/types'
 import { formatEur } from '@/utils/format'
 import { useChartHover } from '../composables/useChartHover'
 import { useSpendChart } from '../composables/useSpendChart'

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
-import { ACCESS, AGENT, EUR_PER_MILLION_TOKENS, TEAM } from '@/data/run-script'
+import { ACCESS, AGENT, EUR_PER_MILLION_TOKENS, TEAM } from '@/features/run/data/run-script'
 import RunAccessCard from './RunAccessCard.vue'
 import RunBudgetCard from './RunBudgetCard.vue'
 import RunModelCard from './RunModelCard.vue'

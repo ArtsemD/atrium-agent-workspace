@@ -1,4 +1,4 @@
-import type { RunStep, WriteState } from '@/types/agent'
+import type { RunStep, WriteState } from '@/features/run/types'
 
 /** Fixed sample data for the Components page and Storybook. Not used by the live run. */
 

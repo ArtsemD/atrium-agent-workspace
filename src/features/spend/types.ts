@@ -30,11 +30,13 @@ export interface TeamSpend {
   usefulRate: number
 }
 
+export type KpiTone = 'neutral' | 'ok' | 'warn'
+
 export interface KpiTileProps {
   label: string
   value: string
   hint?: string
-  tone?: 'neutral' | 'ok' | 'warn'
+  tone?: KpiTone
 }
 
 /** A point on the spend chart: day of month and euros */

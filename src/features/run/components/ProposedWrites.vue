@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import BaseBadge from '@/components/base/BaseBadge.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
-import type { ProposedWritesEmits, ProposedWritesProps } from '@/types/agent'
+import type { ProposedWritesEmits, ProposedWritesProps } from '@/features/run/types'
 
 const props = defineProps<ProposedWritesProps>()
 const emit = defineEmits<ProposedWritesEmits>()

@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import BaseBadge from '@/components/base/BaseBadge.vue'
 import BaseCard from '@/components/base/BaseCard.vue'
 import BaseSkeleton from '@/components/base/BaseSkeleton.vue'
-import type { SpendChartCardProps } from '@/types/spend'
+import type { SpendChartCardProps } from '@/features/spend/types'
 import { isOnTrack } from '../utils/spend-metrics'
 import SpendChart from './SpendChart.vue'
 

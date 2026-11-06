@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
-import { ACTUAL, COMPANY_BUDGET_EUR, MONTH, forecast } from '@/data/spend'
+import { ACTUAL, COMPANY_BUDGET_EUR, MONTH, forecast } from '@/features/spend/data/spend'
 import SpendChartCard from './SpendChartCard.vue'
 
 /** The chart in its card, with the legend (ChartLegend) and a status badge. Hover shows ChartTooltip. */

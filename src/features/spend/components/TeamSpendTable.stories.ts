@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
-import { TEAMS } from '@/data/spend'
+import { TEAMS } from '@/features/spend/data/spend'
 import TeamSpendTable from './TeamSpendTable.vue'
 
 const meta = {

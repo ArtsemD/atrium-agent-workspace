@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import type { ChartFrame } from '@/types/spend'
+import type { ChartFrame } from '@/features/spend/types'
 import { createScales, hoverPointAt, niceCeil, ticks } from './chart-geometry'
 
 const frame: ChartFrame = {

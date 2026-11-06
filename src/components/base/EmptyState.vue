@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ICON_SIZE } from '@/constants/icons'
-import type { EmptyStateProps } from '@/types/ui'
+import type { EmptyStateProps } from '@/components/base/types'
 import BaseIcon from './BaseIcon.vue'
 
 defineProps<EmptyStateProps>()

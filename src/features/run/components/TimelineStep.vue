@@ -3,20 +3,11 @@ import { computed } from 'vue'
 import BaseIcon from '@/components/base/BaseIcon.vue'
 import BaseSpinner from '@/components/base/BaseSpinner.vue'
 import { ICON_SIZE } from '@/constants/icons'
-import { formatDuration, formatTokens } from '@/utils/format'
-import type { StepKind, TimelineStepProps } from '@/types/agent'
-import type { IconName } from '@/types/ui'
+import { STEP_ICON } from '@/features/run/constants'
+import { formatDuration, formatTokens } from '@/features/run/utils/format'
+import type { TimelineStepProps } from '@/features/run/types'
 
 const props = defineProps<TimelineStepProps>()
-
-const STEP_ICON: Record<StepKind, IconName> = {
-  plan: 'list',
-  read: 'database',
-  analyze: 'search',
-  proposal: 'pencil',
-  apply: 'check',
-  result: 'flag',
-}
 
 const markerClass = computed(() => {
   if (props.status === 'running') {

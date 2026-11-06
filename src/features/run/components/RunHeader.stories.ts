@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import { fn } from 'storybook/test'
-import { AGENT } from '@/data/run-script'
+import { AGENT } from '@/features/run/data/run-script'
 import RunHeader from './RunHeader.vue'
 
 const meta = {

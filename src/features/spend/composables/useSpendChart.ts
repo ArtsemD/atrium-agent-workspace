@@ -1,6 +1,6 @@
 import { computed, type Ref } from 'vue'
-import { CHART } from '@/constants/chart'
-import type { ChartFrame, ChartPoint, SpendChartModel, SpendChartProps } from '@/types/spend'
+import { CHART } from '@/features/spend/constants'
+import type { ChartFrame, ChartPoint, SpendChartModel, SpendChartProps } from '@/features/spend/types'
 import { createScales, niceCeil, ticks } from '../utils/chart-geometry'
 import { describeSpendChart } from '../utils/spend-metrics'
 

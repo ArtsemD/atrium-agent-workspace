@@ -9,7 +9,8 @@ import type { AccessScope, Agent, ScriptStep, TeamBudget } from '@/types/agent'
 export const AGENT: Agent = {
   name: 'Ledger',
   role: 'Finance agent',
-  model: 'Any model via gateway',
+  model: 'Chosen per step',
+  gateway: 'Company AI gateway',
 }
 
 export const TEAM: TeamBudget = {
@@ -19,7 +20,7 @@ export const TEAM: TeamBudget = {
 }
 
 /** Blended price used to turn tokens into money for the demo */
-const EUR_PER_MILLION_TOKENS = 9
+export const EUR_PER_MILLION_TOKENS = 9
 
 export const DEFAULT_TASK =
   'Reconcile October vendor invoices against purchase orders and fix anything that is wrong in the ERP.'

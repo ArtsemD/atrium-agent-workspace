@@ -61,7 +61,10 @@ export type Delay = (ms: number) => Promise<void>
 export interface Agent {
   name: string
   role: string
+  /** How the model is picked, e.g. "Chosen per step" */
   model: string
+  /** Where requests are routed and billed */
+  gateway: string
 }
 
 export interface TeamBudget {
@@ -171,4 +174,7 @@ export interface RunBudgetCardProps {
 
 export interface RunModelCardProps {
   model: string
+  gateway: string
+  /** Blended rate the run's cost is calculated at */
+  eurPerMillionTokens: number
 }

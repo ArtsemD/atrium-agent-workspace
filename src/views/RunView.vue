@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount } from 'vue'
-import { ACCESS, AGENT, DEFAULT_TASK, RUN_SCRIPT, TEAM } from '@/data/run-script'
+import { ACCESS, AGENT, DEFAULT_TASK, EUR_PER_MILLION_TOKENS, RUN_SCRIPT, TEAM } from '@/data/run-script'
 import RunAccessCard from '@/features/run/components/RunAccessCard.vue'
 import RunBudgetCard from '@/features/run/components/RunBudgetCard.vue'
 import RunComposer from '@/features/run/components/RunComposer.vue'
@@ -38,7 +38,7 @@ onBeforeUnmount(run.stop)
     />
 
     <div class="grid items-start gap-4 lg:grid-cols-(--layout-run)">
-      <section class="panel p-4 sm:p-5 lg:min-h-(--size-run-panel)" aria-labelledby="run-title">
+      <section class="panel p-4 sm:p-5" aria-labelledby="run-title">
         <template v-if="state.status === 'idle'">
           <h2 id="run-title" class="sr-only">New run</h2>
           <RunComposer :agent-name="AGENT.name" :default-task="DEFAULT_TASK" @start="run.start" />
@@ -60,7 +60,7 @@ onBeforeUnmount(run.stop)
       <aside class="grid gap-4 lg:sticky lg:top-4">
         <RunAccessCard :access="ACCESS" />
         <RunBudgetCard :team="TEAM" :run-cost-eur="run.costEur.value" />
-        <RunModelCard :model="AGENT.model" />
+        <RunModelCard :model="AGENT.model" :gateway="AGENT.gateway" :eur-per-million-tokens="EUR_PER_MILLION_TOKENS" />
       </aside>
     </div>
   </div>

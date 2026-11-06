@@ -29,7 +29,7 @@ export interface ScriptStep {
 export const AGENT = {
   name: 'Ledger',
   role: 'Finance agent',
-  model: 'Any model · via gateway',
+  model: 'Any model via gateway',
 }
 
 export const TEAM = {
@@ -45,9 +45,9 @@ export const DEFAULT_TASK =
   'Reconcile October vendor invoices against purchase orders and fix anything that is wrong in the ERP.'
 
 export const ACCESS = [
-  { scope: 'Billing · invoices', mode: 'read' as const },
-  { scope: 'ERP · purchase orders', mode: 'read' as const },
-  { scope: 'ERP · invoices', mode: 'write' as const },
+  { scope: 'Billing invoices', mode: 'read' as const },
+  { scope: 'ERP purchase orders', mode: 'read' as const },
+  { scope: 'ERP invoices', mode: 'write' as const },
 ]
 
 export const RUN_SCRIPT: ScriptStep[] = [
@@ -62,7 +62,7 @@ export const RUN_SCRIPT: ScriptStep[] = [
     kind: 'read',
     title: 'Read 312 October invoices',
     detail: 'Pulled every invoice dated 1–31 October, including credit notes.',
-    source: 'Billing · read-only',
+    source: 'Billing, read-only',
     durationMs: 2200,
     tokens: 18_400,
   },
@@ -70,7 +70,7 @@ export const RUN_SCRIPT: ScriptStep[] = [
     kind: 'read',
     title: 'Matched 298 of 312 invoices to purchase orders',
     detail: '14 invoices do not match their PO on amount, vendor or status.',
-    source: 'ERP · read-only',
+    source: 'ERP, read-only',
     durationMs: 2600,
     tokens: 22_100,
   },
@@ -90,7 +90,7 @@ export const RUN_SCRIPT: ScriptStep[] = [
     writes: [
       {
         id: 'w1',
-        target: 'INV-20418 · Halden Supplies',
+        target: 'INV-20418, Halden Supplies',
         field: 'Amount',
         from: '€12,400.00',
         to: '€12,040.00',
@@ -98,7 +98,7 @@ export const RUN_SCRIPT: ScriptStep[] = [
       },
       {
         id: 'w2',
-        target: 'INV-20455 · Nordlicht',
+        target: 'INV-20455, Nordlicht',
         field: 'Vendor',
         from: 'Nordlicht GmbH',
         to: 'Nordlicht Logistik GmbH',
@@ -106,7 +106,7 @@ export const RUN_SCRIPT: ScriptStep[] = [
       },
       {
         id: 'w3',
-        target: 'INV-20502 · Corvel Print',
+        target: 'INV-20502, Corvel Print',
         field: 'Status',
         from: 'Approved',
         to: 'On hold',

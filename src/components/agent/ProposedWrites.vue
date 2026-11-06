@@ -19,7 +19,7 @@ const approved = computed(() => props.writes.filter((w) => w.decision === 'appro
   <section class="overflow-hidden rounded-lg border border-line bg-surface-solid" aria-label="Changes the agent wants to write">
     <header class="flex flex-wrap items-center justify-between gap-2 border-b border-line px-4 py-2.5">
       <p class="text-[13px] text-fg-2">
-        <span class="font-semibold text-fg">{{ writes.length }} changes</span> to ERP · invoices
+        <span class="font-semibold text-fg">{{ writes.length }} changes</span> to ERP invoices
       </p>
       <div v-if="!locked && pending > 0" class="flex gap-1">
         <Button size="sm" variant="ghost" @click="emit('decideAll', 'rejected')">Reject all</Button>
@@ -31,7 +31,8 @@ const approved = computed(() => props.writes.filter((w) => w.decision === 'appro
       <li v-for="w in writes" :key="w.id" class="grid gap-3 px-4 py-3.5 sm:grid-cols-[1fr_auto] sm:items-start">
         <div class="min-w-0">
           <p class="text-[13px] font-medium text-fg">
-            {{ w.target }} <span class="font-normal text-fg-3">· {{ w.field }}</span>
+            {{ w.target }}
+            <span class="ml-1.5 rounded bg-sunken px-1.5 py-0.5 text-xs font-normal text-fg-2">{{ w.field }}</span>
           </p>
           <!-- the diff: old value struck through, new value highlighted -->
           <p class="mt-1.5 flex flex-wrap items-center gap-2 font-mono text-[13px]">

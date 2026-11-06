@@ -104,9 +104,9 @@ export function useAgentRun(script: ScriptStep[] = RUN_SCRIPT, delay: Delay = wa
           ? `Wrote ${approved.length} approved ${approved.length === 1 ? 'change' : 'changes'} to the ERP`
           : 'Wrote nothing: every change was rejected',
         detail: approved.length
-          ? approved.map((w) => `${w.target.split(' · ')[0]}: ${w.field.toLowerCase()} → ${w.to}`).join('  ·  ')
+          ? approved.map((w) => `${w.target.split(', ')[0]}: ${w.field.toLowerCase()} → ${w.to}`).join('; ')
           : 'The ERP is unchanged.',
-        source: approved.length ? 'ERP · audit log updated' : undefined,
+        source: approved.length ? 'ERP audit log updated' : undefined,
         durationMs: approved.length ? 1200 : 400,
         tokens: approved.length ? 1_100 : 200,
       },

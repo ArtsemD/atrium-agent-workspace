@@ -72,8 +72,9 @@ const icon = computed(() => ICON[props.kind])
         />
       </p>
       <p v-else class="mt-1 text-sm leading-5 text-fg-2">{{ detail }}</p>
-      <p class="num mt-1.5 text-xs text-fg-3">
-        {{ formatTokens(tokens) }} tokens<template v-if="status === 'done'"> · {{ formatDuration(durationMs) }}</template>
+      <p class="num mt-1.5 flex gap-3 text-xs text-fg-3">
+        <span>{{ formatTokens(tokens) }} tokens</span>
+        <span v-if="status === 'done'">{{ formatDuration(durationMs) }}</span>
       </p>
       <div v-if="$slots.default" class="mt-3"><slot /></div>
     </div>

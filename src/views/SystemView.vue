@@ -12,9 +12,9 @@ import type { WriteState } from '../composables/useAgentRun'
 const TOKENS = ['bg', 'surface-solid', 'fg', 'fg-2', 'accent', 'ok', 'warn', 'danger'] as const
 
 const writes: WriteState[] = [
-  { id: 'a', target: 'INV-1001 · Example Ltd', field: 'Amount', from: '€100.00', to: '€110.00', reason: 'Pending: waiting for a decision.', decision: 'pending' },
-  { id: 'b', target: 'INV-1002 · Example Ltd', field: 'Status', from: 'Draft', to: 'Approved', reason: 'Approved: will be written.', decision: 'approved' },
-  { id: 'c', target: 'INV-1003 · Example Ltd', field: 'Vendor', from: 'Acme', to: 'Acme GmbH', reason: 'Rejected: stays as it is.', decision: 'rejected' },
+  { id: 'a', target: 'INV-1001, Example Ltd', field: 'Amount', from: '€100.00', to: '€110.00', reason: 'Pending: waiting for a decision.', decision: 'pending' },
+  { id: 'b', target: 'INV-1002, Example Ltd', field: 'Status', from: 'Draft', to: 'Approved', reason: 'Approved: will be written.', decision: 'approved' },
+  { id: 'c', target: 'INV-1003, Example Ltd', field: 'Vendor', from: 'Acme', to: 'Acme GmbH', reason: 'Rejected: stays as it is.', decision: 'rejected' },
 ]
 </script>
 
@@ -69,7 +69,7 @@ const writes: WriteState[] = [
           <Badge tone="warn" dot>Needs approval</Badge>
           <Badge tone="danger" dot>Rejected</Badge>
         </div>
-        <h3 class="eyebrow mt-6 mb-3">Meter · under, near and over the limit</h3>
+        <h3 class="eyebrow mt-6 mb-3">Meter: under, near and over the limit</h3>
         <div class="grid gap-3">
           <Meter :value="52" :max="100" label="52% used" />
           <Meter :value="94" :max="100" label="94% used" />
@@ -78,22 +78,22 @@ const writes: WriteState[] = [
       </section>
 
       <section class="panel p-5">
-        <h2 class="m-0 text-[15px] font-semibold text-fg">Timeline step · running and done</h2>
+        <h2 class="m-0 text-[15px] font-semibold text-fg">Timeline step: running and done</h2>
         <ol class="mt-4 list-none p-0">
-          <TimelineStep kind="read" title="Read 312 October invoices" detail="Pulled every invoice dated 1–31 October." source="Billing · read-only" status="done" :tokens="18400" :duration-ms="2200" />
+          <TimelineStep kind="read" title="Read 312 October invoices" detail="Pulled every invoice dated 1–31 October." source="Billing, read-only" status="done" :tokens="18400" :duration-ms="2200" />
           <TimelineStep kind="analyze" title="Checking the mismatches" detail="" status="running" :tokens="4200" :duration-ms="0" last />
         </ol>
       </section>
     </div>
 
     <section class="panel p-5">
-      <h2 class="m-0 text-[15px] font-semibold text-fg">Proposed writes · pending, approved, rejected</h2>
+      <h2 class="m-0 text-[15px] font-semibold text-fg">Proposed writes: pending, approved, rejected</h2>
       <ProposedWrites class="mt-4" :writes="writes" :locked="false" />
     </section>
 
     <div class="grid gap-4 xl:grid-cols-2">
       <section class="panel p-5">
-        <h2 class="m-0 text-[15px] font-semibold text-fg">Loading · same box as the content</h2>
+        <h2 class="m-0 text-[15px] font-semibold text-fg">Loading: same box as the content</h2>
         <div class="mt-4 rounded-lg border border-line p-4">
           <Skeleton class="h-3 w-24" />
           <Skeleton class="mt-3 h-7 w-28" />

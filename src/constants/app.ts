@@ -22,3 +22,7 @@ export const ROUTES: readonly AppRoute[] = [
 ]
 
 export const PERCENT = 100
+
+/** How long a number takes to count to its new value */
+export const COUNT_UP_MS = 600
+export const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'

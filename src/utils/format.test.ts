@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatDuration, formatEur, formatTokens, percent } from '@/lib/format'
+import { formatDuration, formatEur, formatTokens, percent } from '@/utils/format'
 
 describe('format', () => {
   it('formats money in euros', () => {

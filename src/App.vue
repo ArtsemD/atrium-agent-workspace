@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Component } from 'vue'
-import AppSidebar from '@/components/app/AppSidebar.vue'
+import AppSidebar from '@/components/layout/AppSidebar.vue'
 import { useHashRoute } from '@/composables/useHashRoute'
 import type { RouteId } from '@/types/app'
 import RunView from '@/views/RunView.vue'

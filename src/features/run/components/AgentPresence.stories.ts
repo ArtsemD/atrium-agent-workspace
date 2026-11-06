@@ -3,7 +3,7 @@ import { AGENT } from '@/data/run-script'
 import AgentPresence from './AgentPresence.vue'
 
 const meta = {
-  title: 'Agent/AgentPresence',
+  title: 'Run/AgentPresence',
   component: AgentPresence,
   args: { name: `${AGENT.name}, ${AGENT.role.toLowerCase()}`, activity: 'Checked the 14 mismatches…', active: true },
 } satisfies Meta<typeof AgentPresence>

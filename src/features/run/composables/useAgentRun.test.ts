@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { nextTick } from 'vue'
-import { useAgentRun } from '@/composables/useAgentRun'
+import { useAgentRun } from '@/features/run/composables/useAgentRun'
 
 const instant = () => Promise.resolve()
 const flush = async () => {

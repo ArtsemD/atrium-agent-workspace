@@ -1,0 +1,24 @@
+<script setup lang="ts">
+import type { RunStatsProps } from '@/types/agent'
+import { formatDuration, formatEur, formatTokens } from '@/utils/format'
+
+defineProps<RunStatsProps>()
+</script>
+
+<template>
+  <!-- Fixed widths and tabular figures, so the numbers tick without moving their neighbours -->
+  <dl class="m-0 flex gap-6 text-body">
+    <div>
+      <dt class="eyebrow">Tokens</dt>
+      <dd class="num m-0 mt-0.5 w-16 font-semibold text-fg">{{ formatTokens(tokens) }}</dd>
+    </div>
+    <div>
+      <dt class="eyebrow">Cost</dt>
+      <dd class="num m-0 mt-0.5 w-14 font-semibold text-fg">{{ formatEur(costEur) }}</dd>
+    </div>
+    <div>
+      <dt class="eyebrow">Time</dt>
+      <dd class="num m-0 mt-0.5 w-12 font-semibold text-fg">{{ formatDuration(elapsedMs) }}</dd>
+    </div>
+  </dl>
+</template>

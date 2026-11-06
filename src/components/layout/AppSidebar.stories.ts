@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import AppSidebar from './AppSidebar.vue'
 
 const meta = {
-  title: 'App/AppSidebar',
+  title: 'Layout/AppSidebar',
   component: AppSidebar,
   args: { current: 'run' },
   argTypes: { current: { control: 'inline-radio', options: ['run', 'spend', 'system'] } },

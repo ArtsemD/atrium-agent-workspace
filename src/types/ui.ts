@@ -37,3 +37,17 @@ export interface EmptyStateProps {
   title: string
   description?: string
 }
+
+export type CardSize = 'sm' | 'md'
+
+export interface BaseCardProps {
+  title?: string
+  description?: string
+  /** sm: compact side card with a small caps heading. md: page section with a title. */
+  size?: CardSize
+}
+
+export interface StatusBadge {
+  tone: Tone
+  label: string
+}

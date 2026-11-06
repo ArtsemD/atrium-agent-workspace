@@ -144,7 +144,6 @@
   --size-table-min: 640px;
   --size-meter-col: 44%;
   --size-action-col: 188px;
-  --size-badge-slot: 84px;
   --size-sidebar-height: calc(100dvh - 2rem);
   --layout-shell: var(--size-sidebar) minmax(0, 1fr);
   --layout-run: minmax(0, 1fr) var(--size-aside);

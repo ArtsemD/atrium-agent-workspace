@@ -4,7 +4,7 @@ import { SAMPLE_WRITES } from '@/data/samples'
 import ProposedWrites from './ProposedWrites.vue'
 
 const meta = {
-  title: 'Agent/ProposedWrites',
+  title: 'Run/ProposedWrites',
   component: ProposedWrites,
   args: { writes: SAMPLE_WRITES, locked: false, onDecide: fn(), onDecideAll: fn(), onConfirm: fn() },
 } satisfies Meta<typeof ProposedWrites>

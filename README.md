@@ -38,7 +38,7 @@ Four themes (light, dark, dusk and sand) come from one set of semantic tokens. T
 | Every component has stories for each of its states, rendered in all four themes from the Storybook toolbar, with the accessibility addon checking each one.                                                                                                                                                                      | `*.stories.ts`, `.storybook`                                     |
 | Nothing shifts as it loads. Skeletons take the exact box of their content, the approval row keeps a fixed-width action column, and numbers use tabular figures.                                                                                                                                                                  | `BaseSkeleton.vue`, `ProposedWrites.vue`                         |
 | The run is a state machine: idle, running, awaiting approval, completed, stopped. It replays a scripted run in the same shape a backend would stream over WebSocket, and a generation counter stops a cancelled run from writing into a new one.                                                                                 | `src/composables/useAgentRun.ts`                                 |
-| The chart is hand-built SVG: theme-aware through CSS variables, with an accessible text summary and hover by nearest day. One chart did not need a chart library.                                                                                                                                                                | `src/components/spend/SpendChart.vue`                            |
+| The chart is hand-built SVG: geometry is pure functions with tests, the component only draws. It is theme-aware through CSS variables, with an accessible text summary and hover by nearest day. One chart did not need a chart library.                                                                                         | `src/features/spend`                                             |
 | Accessible by default: skip link, visible focus, a live region for the agent's activity, `role="meter"` for budgets and `aria-pressed` for ratings. Reduced motion is respected.                                                                                                                                                 | throughout                                                       |
 
 ## Try a state directly
@@ -51,24 +51,38 @@ Add these to the demo URL:
 
 ## Project structure
 
+Code is grouped by feature. A view only wires data to sections; logic lives in composables and pure utils, which are unit tested.
+
 ```
 src/
-  types/         interfaces and unions: props, emits, domain models
-  constants/     named values that are not design tokens (icons, timings, thresholds, chart geometry)
-  styles/        tokens.css (four themes) and main.css (Tailwind mapping)
-  data/          fictional run script, spend data, samples for the Components page and stories
-  lib/           pure helpers (formatting), unit tested
-  composables/   useAgentRun (state machine), useTheme, useHashRoute
+  views/              thin pages: RunView, SpendView, SystemView
+  features/
+    run/
+      components/     RunHeader, RunStats, RunComposer, RunTimeline, TimelineStep, ProposedWrites,
+                      RunRating, AgentPresence, RunAccessCard, RunBudgetCard, RunModelCard
+      composables/    useAgentRun (state machine), useElapsedTime, useScenePlayback
+      utils/          run-status (activity text, elapsed time), run-scene (?scene=…)
+    spend/
+      components/     SpendKpiGrid, KpiTile, SpendChartCard, SpendChart, ChartTooltip, ChartLegend,
+                      TeamSpendTable, TeamBudgetCell
+      composables/    useSpendChart (scales and paths), useChartHover
+      utils/          spend-metrics (KPIs, cost per useful run), chart-geometry (scales, paths)
+    system/
+      components/     ThemePreviewCard, ControlsShowcase
   components/
-    base/        BaseButton, BaseBadge, BaseMeter, BaseIcon, BaseSkeleton, BaseSpinner, EmptyState
-    agent/       AgentPresence, TimelineStep, ProposedWrites, RunRating
-    spend/       KpiTile, SpendChart
-    app/         AppSidebar, ThemeSwitcher
-  stories/       Foundations: token and type scale overview
-  views/         RunView, SpendView, SystemView
+    base/             shared UI kit: BaseCard, BaseButton, BaseBadge, BaseMeter, BaseIcon,
+                      BaseSkeleton, BaseSpinner, EmptyState
+    layout/           AppSidebar, ThemeSwitcher
+  composables/        shared: useTheme, useHashRoute, useSimulatedLoading
+  utils/              shared pure helpers: format, math
+  types/              interfaces and unions: props, emits, domain models
+  constants/          named values that are not design tokens (icons, timings, thresholds, chart geometry)
+  styles/             tokens.css (four themes) and main.css (Tailwind mapping)
+  data/               fictional run script, spend data, samples for stories
+  stories/            Foundations: rules, colour tokens, type scale
 ```
 
-Conventions follow the Vue style guide: multi-word component names, a `Base` prefix for presentational building blocks, `<script setup>` with type-based props and emits. ESLint enforces them.
+Conventions follow the Vue style guide: multi-word component names, a `Base` prefix for the shared kit, `<script setup>` with type-based props and emits. Components are presentational where they can be: they take data through props and report back through emits, so each one has stories for its states. ESLint enforces the conventions.
 
 ## Stack
 

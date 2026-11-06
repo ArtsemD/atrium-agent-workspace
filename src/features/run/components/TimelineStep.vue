@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import BaseIcon from '@/components/base/BaseIcon.vue'
 import BaseSpinner from '@/components/base/BaseSpinner.vue'
 import { ICON_SIZE } from '@/constants/icons'
-import { formatDuration, formatTokens } from '@/lib/format'
+import { formatDuration, formatTokens } from '@/utils/format'
 import type { StepKind, TimelineStepProps } from '@/types/agent'
 import type { IconName } from '@/types/ui'
 

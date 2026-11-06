@@ -2,7 +2,7 @@ import type { ForecastModel, ForecastPoint, Month, TeamSpend } from '@/types/spe
 
 /** Fictional November spend for one company, used by the Spend view */
 
-export const MONTH: Month = { label: 'November 2026', days: 30, today: 18 }
+export const MONTH: Month = { label: 'November 2026', short: 'Nov', days: 30, today: 18 }
 export const COMPANY_BUDGET_EUR = 4000
 
 /** Cumulative spend in euros at the end of each day so far */
@@ -31,3 +31,6 @@ export const TEAMS: readonly TeamSpend[] = [
   { team: 'Sales', spend: 452.4, budget: 1200, runs: 233, usefulRate: 0.76 },
   { team: 'Legal', spend: 248.5, budget: 800, runs: 41, usefulRate: 0.9 },
 ]
+
+/** Fictional month-on-month change shown on the cost per useful run tile */
+export const COST_PER_USEFUL_RUN_TREND = 'down 12% on October'

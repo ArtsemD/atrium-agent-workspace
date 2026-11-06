@@ -19,7 +19,7 @@ export const TEAM: TeamBudget = {
 }
 
 /** Blended price used to turn tokens into money for the demo */
-export const EUR_PER_MILLION_TOKENS = 9
+const EUR_PER_MILLION_TOKENS = 9
 
 export const DEFAULT_TASK =
   'Reconcile October vendor invoices against purchase orders and fix anything that is wrong in the ERP.'

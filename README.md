@@ -31,15 +31,16 @@ Four themes (light, dark, dusk and sand) come from one set of semantic tokens. T
 
 ## Engineering decisions
 
-| Decision                                                                                                                                                                                                                                                                                                                         | Where                                                            |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| No magic values. Colours, font sizes, layout sizes and durations are tokens (`--fg-2`, `--text-body-sm`, `--size-aside`, `--dur-fast`) mapped into Tailwind. Non-visual numbers (timings, thresholds, chart geometry) are named constants. A script fails CI on arbitrary Tailwind values, raw colours and static inline styles. | `src/styles`, `src/constants`, `scripts/check-design-tokens.mjs` |
-| Types live apart from components. Props and emits are interfaces in `src/types`, components declare them with `defineProps<BaseButtonProps>()`.                                                                                                                                                                                  | `src/types`                                                      |
-| Every component has stories for each of its states, rendered in all four themes from the Storybook toolbar, with the accessibility addon checking each one.                                                                                                                                                                      | `*.stories.ts`, `.storybook`                                     |
-| Nothing shifts as it loads. Skeletons take the exact box of their content, the approval row keeps a fixed-width action column, and numbers use tabular figures.                                                                                                                                                                  | `BaseSkeleton.vue`, `ProposedWrites.vue`                         |
-| The run is a state machine: idle, running, awaiting approval, completed, stopped. It replays a scripted run in the same shape a backend would stream over WebSocket, and a generation counter stops a cancelled run from writing into a new one.                                                                                 | `src/features/run/composables/useAgentRun.ts`                    |
-| The chart is hand-built SVG: geometry is pure functions with tests, the component only draws. It is theme-aware through CSS variables, with an accessible text summary and hover by nearest day. One chart did not need a chart library.                                                                                         | `src/features/spend`                                             |
-| Accessible by default: skip link, visible focus, a live region for the agent's activity, `role="meter"` for budgets and `aria-pressed` for ratings. Reduced motion is respected.                                                                                                                                                 | throughout                                                       |
+| Decision                                                                                                                                                                                                                                                                                                                              | Where                                                            |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| No magic values. Colours, font sizes, layout sizes and durations are tokens (`--fg-2`, `--font-size-body-sm`, `--size-aside`, `--dur-fast`) mapped into Tailwind. Non-visual numbers (timings, thresholds, chart geometry) are named constants. A script fails CI on arbitrary Tailwind values, raw colours and static inline styles. | `src/styles`, `src/constants`, `scripts/check-design-tokens.mjs` |
+| Types live apart from components. Props and emits are interfaces in `src/types`, components declare them with `defineProps<BaseButtonProps>()`.                                                                                                                                                                                       | `src/types`                                                      |
+| Every component has stories for each of its states (small parts such as the chart legend, tooltip and KPI skeleton are shown inside their parent's stories), rendered in all four themes from the Storybook toolbar, with the accessibility addon checking each one.                                                                  | `*.stories.ts`, `.storybook`                                     |
+| Nothing shifts as it loads. Skeletons take the exact box of their content, the approval row keeps a fixed-width action column, and numbers use tabular figures.                                                                                                                                                                       | `BaseSkeleton.vue`, `ProposedWrites.vue`                         |
+| The run is a state machine: idle, running, awaiting approval, completed, stopped. It replays a scripted run in the same shape a backend would stream over WebSocket, and a generation counter stops a cancelled run from writing into a new one.                                                                                      | `src/features/run/composables/useAgentRun.ts`                    |
+| The chart is hand-built SVG: geometry is pure functions with tests, the component only draws. It is theme-aware through CSS variables, with an accessible text summary and hover by nearest day. One chart did not need a chart library.                                                                                              | `src/features/spend`                                             |
+| Responsive down to 375px. On phones the sidebar becomes a top bar with tab-style navigation, the team table becomes cards, and the chart is drawn at its container's real width so axis text stays 12px. Views use a `minmax(0, 1fr)` column, so no child can push the page wider than the screen.                                    | `AppSidebar.vue`, `TeamSpendTable.vue`, `useSpendChart.ts`       |
+| Accessible by default: skip link, visible focus, a live region for the agent's activity, `role="meter"` for budgets and `aria-pressed` for ratings. Reduced motion is respected.                                                                                                                                                      | throughout                                                       |
 
 ## Try a state directly
 
@@ -63,8 +64,8 @@ src/
       composables/    useAgentRun (state machine), useElapsedTime, useScenePlayback
       utils/          run-status (activity text, elapsed time), run-scene (?scene=…)
     spend/
-      components/     SpendKpiGrid, KpiTile, SpendChartCard, SpendChart, ChartTooltip, ChartLegend,
-                      TeamSpendTable, TeamBudgetCell
+      components/     SpendKpiGrid, KpiTile, KpiTileSkeleton, SpendChartCard, SpendChart, ChartTooltip,
+                      ChartLegend, TeamSpendTable, TeamBudgetCell
       composables/    useSpendChart (scales and paths), useChartHover
       utils/          spend-metrics (KPIs, cost per useful run), chart-geometry (scales, paths)
     system/
@@ -73,7 +74,7 @@ src/
     base/             shared UI kit: BaseCard, BaseButton, BaseBadge, BaseMeter, BaseIcon,
                       BaseSkeleton, BaseSpinner, EmptyState
     layout/           AppSidebar, ThemeSwitcher
-  composables/        shared: useTheme, useHashRoute, useSimulatedLoading
+  composables/        shared: useTheme, useHashRoute, useSimulatedLoading, useElementWidth
   utils/              shared pure helpers: format, math
   types/              interfaces and unions: props, emits, domain models
   constants/          named values that are not design tokens (icons, timings, thresholds, chart geometry)

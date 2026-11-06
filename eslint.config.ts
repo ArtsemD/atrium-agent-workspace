@@ -17,9 +17,9 @@ export default defineConfigWithVueTs(
       'vue/no-unused-refs': 'error',
       'vue/no-useless-v-bind': 'error',
       'vue/prefer-true-attribute-shorthand': 'error',
-      // Props come from imported interfaces in src/types
+      // Types are imported with `import type`, so they never end up in the bundle
       '@typescript-eslint/consistent-type-imports': 'error',
-      '@typescript-eslint/no-magic-numbers': 'off',
+      // Timings must be named constants, not numbers passed straight to a timer
       'no-restricted-syntax': [
         'error',
         {

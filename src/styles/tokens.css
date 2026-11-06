@@ -1,8 +1,8 @@
 /*
  * Design tokens.
  * Semantic tokens only: components never reference raw colours, so a theme is
- * just a new block below. Every text/background pair is checked for WCAG AA
- * (4.5:1 for body text) in each theme; see README › Tokens.
+ * just a new block below. Text colours are chosen for WCAG AA contrast (4.5:1)
+ * against the theme's surfaces.
  */
 
 :root,
@@ -29,7 +29,6 @@
   --danger: #b91c1c;
   --danger-soft: rgb(185 28 28 / 0.09);
   --chart-1: #4f46e5;
-  --chart-2: #0d9488;
   --shadow: 0 1px 2px rgb(15 15 25 / 0.04), 0 8px 24px -12px rgb(15 15 25 / 0.12);
 }
 
@@ -56,7 +55,6 @@
   --danger: #f87171;
   --danger-soft: rgb(248 113 113 / 0.12);
   --chart-1: #8b87ff;
-  --chart-2: #2dd4bf;
   --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -12px rgb(0 0 0 / 0.5);
 }
 
@@ -83,7 +81,6 @@
   --danger: #fca5a5;
   --danger-soft: rgb(252 165 165 / 0.12);
   --chart-1: #f0a6ca;
-  --chart-2: #a78bfa;
   --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -12px rgb(0 0 0 / 0.55);
 }
 
@@ -110,7 +107,6 @@
   --danger: #a3271a;
   --danger-soft: rgb(163 39 26 / 0.1);
   --chart-1: #b4430f;
-  --chart-2: #3f7a2a;
   --shadow: 0 1px 2px rgb(60 40 10 / 0.05), 0 8px 24px -12px rgb(60 40 10 / 0.16);
 }
 

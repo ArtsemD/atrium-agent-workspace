@@ -82,7 +82,7 @@ function startRun() {
   <div class="grid gap-4">
     <!-- Run header: who is working, on what, and what it has cost so far -->
     <section class="panel flex flex-wrap items-center gap-x-6 gap-y-4 px-5 py-4">
-      <AgentPresence :name="`${AGENT.name} · ${AGENT.role}`" :activity="activity" :active="state.status === 'running'" />
+      <AgentPresence :name="`${AGENT.name}, ${AGENT.role.toLowerCase()}`" :activity="activity" :active="state.status === 'running'" />
       <div class="ml-auto flex flex-wrap items-center gap-x-6 gap-y-2">
         <Badge :tone="STATUS_BADGE[state.status].tone" dot>{{ STATUS_BADGE[state.status].label }}</Badge>
         <dl class="flex gap-6 text-sm">
@@ -122,7 +122,7 @@ function startRun() {
                 class="mt-2 w-full resize-none rounded-md border border-line-strong bg-surface-solid px-3 py-2.5 text-sm text-fg outline-none placeholder:text-fg-3 focus:border-accent"
               />
               <div class="mt-3 flex items-center justify-between gap-3">
-                <p class="text-xs text-fg-3">Scripted demo run · no real data</p>
+                <p class="text-xs text-fg-3">Scripted demo run, no real data</p>
                 <Button type="submit" variant="primary" icon="play" :disabled="!task.trim()">Start run</Button>
               </div>
             </form>
@@ -165,13 +165,13 @@ function startRun() {
               <span class="inline-flex items-center gap-2 text-fg">
                 <Icon :name="a.mode === 'read' ? 'eye' : 'pencil'" :size="14" class="text-fg-3" />{{ a.scope }}
               </span>
-              <Badge :tone="a.mode === 'read' ? 'neutral' : 'warn'">{{ a.mode === 'read' ? 'Read' : 'Write · asks first' }}</Badge>
+              <Badge :tone="a.mode === 'read' ? 'neutral' : 'warn'">{{ a.mode === 'read' ? 'Read' : 'Write, asks first' }}</Badge>
             </li>
           </ul>
         </section>
 
         <section class="panel p-4" aria-labelledby="budget-title">
-          <h3 id="budget-title" class="eyebrow m-0">{{ TEAM.name }} · this month</h3>
+          <h3 id="budget-title" class="eyebrow m-0">{{ TEAM.name }} this month</h3>
           <p class="num mt-2 text-xl font-semibold text-fg">
             {{ formatEur(TEAM.monthSpendEur + run.costEur.value, { whole: true }) }}
             <span class="text-sm font-normal text-fg-3">of {{ formatEur(TEAM.monthBudgetEur, { whole: true }) }}</span>

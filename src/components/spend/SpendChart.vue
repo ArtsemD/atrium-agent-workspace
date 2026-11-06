@@ -105,7 +105,7 @@ const hover = computed(() => {
         class="pointer-events-none absolute top-2 rounded-md border border-line bg-surface-solid px-2.5 py-1.5 text-xs shadow-lg"
         :style="{ left: `${(x(hover.day) / W) * 100}%`, transform: `translateX(${hover.day > 22 ? '-105%' : '8px'})` }"
       >
-        <p class="text-fg-3">{{ hover.day }} Nov · {{ hover.kind }}</p>
+        <p class="text-fg-3">{{ hover.day }} Nov, {{ hover.kind.toLowerCase() }}</p>
         <p class="num font-semibold text-fg">{{ formatEur(hover.value, { whole: true }) }}</p>
         <p v-if="'low' in hover" class="num text-fg-3">
           likely {{ formatEur(hover.low!, { whole: true }) }}–{{ formatEur(hover.high!, { whole: true }) }}

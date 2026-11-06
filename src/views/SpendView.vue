@@ -23,7 +23,7 @@ const kpis = computed(() => [
   {
     label: 'Month-end forecast',
     value: formatEur(end.mid, { whole: true }),
-    hint: `likely ${formatEur(end.low, { whole: true })}–${formatEur(end.high, { whole: true })} · under budget`,
+    hint: `likely ${formatEur(end.low, { whole: true })}–${formatEur(end.high, { whole: true })}, under budget`,
     tone: 'ok' as const,
   },
   { label: 'Useful runs', value: `${percent(usefulRuns, totalRuns)}%`, hint: `${Math.round(usefulRuns).toLocaleString('en-GB')} of ${totalRuns.toLocaleString('en-GB')} rated useful` },
@@ -48,7 +48,7 @@ const kpis = computed(() => [
       <div class="mb-4 flex flex-wrap items-baseline justify-between gap-2">
         <div>
           <h2 id="chart-title" class="m-0 text-[15px] font-semibold text-fg">AI spend against budget</h2>
-          <p class="mt-0.5 text-[13px] text-fg-2">{{ MONTH.label }} · all teams, all models</p>
+          <p class="mt-0.5 text-[13px] text-fg-2">{{ MONTH.label }}, all teams and models</p>
         </div>
         <Badge tone="ok" dot>On track</Badge>
       </div>

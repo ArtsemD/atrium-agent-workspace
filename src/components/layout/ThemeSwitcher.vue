@@ -6,7 +6,7 @@ const { theme, themes } = useTheme()
 
 <template>
   <fieldset class="m-0 border-0 p-0">
-    <legend class="eyebrow mb-2 px-1">Theme</legend>
+    <legend class="eyebrow mb-2 px-1 max-md:sr-only">Theme</legend>
     <div class="grid grid-cols-4 gap-1 rounded-md bg-sunken p-1">
       <label
         v-for="t in themes"

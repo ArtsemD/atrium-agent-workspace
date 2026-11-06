@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useTemplateRef } from 'vue'
+import { useElementWidth } from '@/composables/useElementWidth'
 import { CHART } from '@/constants/chart'
 import type { SpendChartProps } from '@/types/spend'
 import { formatEur } from '@/utils/format'
@@ -9,7 +11,10 @@ import ChartTooltip from './ChartTooltip.vue'
 
 const props = defineProps<SpendChartProps>()
 
-const { frame, scales, paths, yTicks, today, summary } = useSpendChart(props)
+const container = useTemplateRef<HTMLElement>('container')
+const width = useElementWidth(container)
+
+const { frame, scales, paths, yTicks, xTickDays, today, summary } = useSpendChart(props, width)
 const { hover, tooltipStyle, onPointerMove, onPointerLeave } = useChartHover(props, frame, scales)
 
 const tickAnchor = (day: number) => (day === 1 ? 'start' : day === props.month.days ? 'end' : 'middle')
@@ -18,7 +23,7 @@ const tickLabel = (eur: number) => (eur === 0 ? '€0' : `€${eur / CHART.yTick
 
 <template>
   <figure class="m-0">
-    <div class="relative">
+    <div ref="container" class="relative">
       <svg
         :viewBox="`0 0 ${frame.width} ${frame.height}`"
         class="block h-auto w-full touch-none"
@@ -55,7 +60,7 @@ const tickLabel = (eur: number) => (eur === 0 ? '€0' : `€${eur / CHART.yTick
           </text>
         </g>
         <text
-          v-for="d in CHART.xTickDays"
+          v-for="d in xTickDays"
           :key="d"
           :x="scales.x(d)"
           :y="frame.height - CHART.labelOffset.axis"

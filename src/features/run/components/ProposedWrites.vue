@@ -16,7 +16,7 @@ const approved = computed(() => props.writes.filter((w) => w.decision === 'appro
     class="overflow-hidden rounded-lg border border-line bg-surface-solid"
     aria-label="Changes the agent wants to write"
   >
-    <header class="flex flex-wrap items-center justify-between gap-2 border-b border-line px-4 py-2.5">
+    <header class="flex flex-wrap items-center justify-between gap-2 border-b border-line px-3 py-2.5 sm:px-4">
       <p class="text-body-sm text-fg-2">
         <span class="font-semibold text-fg">{{ writes.length }} changes</span> to ERP invoices
       </p>
@@ -32,7 +32,7 @@ const approved = computed(() => props.writes.filter((w) => w.decision === 'appro
       <li
         v-for="w in writes"
         :key="w.id"
-        class="grid gap-3 px-4 py-3.5 sm:grid-cols-(--layout-write-row) sm:items-start"
+        class="grid gap-3 px-3 py-3.5 sm:grid-cols-(--layout-write-row) sm:items-start sm:px-4"
       >
         <div class="min-w-0">
           <p class="text-body-sm font-medium text-fg">
@@ -49,7 +49,7 @@ const approved = computed(() => props.writes.filter((w) => w.decision === 'appro
         </div>
 
         <!-- Fixed-width action column, so a row doesn't jump when its buttons turn into a badge -->
-        <div class="flex h-8 w-(--size-action-col) items-center justify-end gap-1.5">
+        <div class="flex h-8 items-center gap-1.5 sm:w-(--size-action-col) sm:justify-end">
           <template v-if="w.decision === 'pending'">
             <BaseButton
               size="sm"

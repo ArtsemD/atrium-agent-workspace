@@ -21,7 +21,7 @@ function submit() {
     :title="`Hand a task to ${agentName}`"
     description="It plans the work, reads what it needs and shows you every change before anything is written."
   >
-    <form class="w-(--size-composer) text-left" @submit.prevent="submit">
+    <form class="w-full max-w-(--size-composer) text-left" @submit.prevent="submit">
       <label for="task" class="eyebrow">Task</label>
       <textarea
         id="task"

@@ -8,7 +8,7 @@ const headingId = useId()
 
 const SIZE: Record<CardSize, { box: string; heading: 'h2' | 'h3'; headingClass: string }> = {
   sm: { box: 'p-4', heading: 'h3', headingClass: 'eyebrow m-0' },
-  md: { box: 'p-5', heading: 'h2', headingClass: 'm-0 text-title font-semibold text-fg' },
+  md: { box: 'p-4 sm:p-5', heading: 'h2', headingClass: 'm-0 text-title font-semibold text-fg' },
 }
 </script>
 

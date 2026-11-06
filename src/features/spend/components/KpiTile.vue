@@ -11,9 +11,9 @@ const HINT_CLASS: Record<NonNullable<KpiTileProps['tone']>, string> = {
 </script>
 
 <template>
-  <div class="panel p-4">
+  <div class="panel p-3.5 sm:p-4">
     <p class="eyebrow">{{ label }}</p>
-    <p class="num mt-2 text-display font-semibold tracking-tight text-fg">{{ value }}</p>
+    <p class="num mt-2 text-heading sm:text-display font-semibold tracking-tight text-fg">{{ value }}</p>
     <p v-if="hint" class="mt-1 text-body-sm" :class="HINT_CLASS[tone]">{{ hint }}</p>
     <slot />
   </div>

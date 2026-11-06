@@ -115,11 +115,49 @@
 }
 
 :root {
+  /* Shape */
   --radius-sm: 8px;
   --radius: 12px;
   --radius-lg: 18px;
   --blur: 22px;
+
+  /* Type scale (font size / line height) */
+  --font-size-caption: 11px;
+  --font-size-meta: 12px;
+  --font-size-body-sm: 13px;
+  --font-size-body: 14px;
+  --font-size-title: 15px;
+  --font-size-heading: 22px;
+  --font-size-display: 24px;
+  --line-height-caption: 1rem;
+  --line-height-body-sm: 1.25rem;
+  --line-height-title: 1.5rem;
+  --line-height-heading: 1.75rem;
+  --tracking-eyebrow: 0.06em;
+
+  /* Layout */
+  --size-page: 1440px;
+  --size-sidebar: 232px;
+  --size-aside: 300px;
+  --size-composer: min(560px, 80vw);
+  --size-run-panel: 480px;
+  --size-table-min: 640px;
+  --size-meter-col: 44%;
+  --size-action-col: 188px;
+  --size-badge-slot: 84px;
+  --size-sidebar-height: calc(100dvh - 2rem);
+  --layout-shell: var(--size-sidebar) minmax(0, 1fr);
+  --layout-run: minmax(0, 1fr) var(--size-aside);
+  --layout-timeline: 2rem minmax(0, 1fr);
+  --layout-write-row: minmax(0, 1fr) auto;
+  --chart-aspect: 1080 / 340;
+
+  /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --dur-fast: 140ms;
   --dur: 240ms;
+  --dur-rise: 320ms;
+  --dur-meter: 500ms;
+  --dur-shimmer: 1.6s;
+  --dur-presence: 1.8s;
 }

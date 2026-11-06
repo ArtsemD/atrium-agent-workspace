@@ -1,18 +1,20 @@
 <script setup lang="ts">
-defineProps<{ label: string; value: string; hint?: string; tone?: 'neutral' | 'ok' | 'warn' }>()
+import type { KpiTileProps } from '@/types/spend'
+
+withDefaults(defineProps<KpiTileProps>(), { tone: 'neutral' })
+
+const HINT_CLASS: Record<NonNullable<KpiTileProps['tone']>, string> = {
+  neutral: 'text-fg-2',
+  ok: 'text-ok',
+  warn: 'text-warn',
+}
 </script>
 
 <template>
   <div class="panel p-4">
     <p class="eyebrow">{{ label }}</p>
-    <p class="num mt-2 text-2xl font-semibold tracking-tight text-fg">{{ value }}</p>
-    <p
-      v-if="hint"
-      class="mt-1 text-[13px]"
-      :class="{ 'text-fg-2': !tone || tone === 'neutral', 'text-ok': tone === 'ok', 'text-warn': tone === 'warn' }"
-    >
-      {{ hint }}
-    </p>
+    <p class="num mt-2 text-display font-semibold tracking-tight text-fg">{{ value }}</p>
+    <p v-if="hint" class="mt-1 text-body-sm" :class="HINT_CLASS[tone]">{{ hint }}</p>
     <slot />
   </div>
 </template>

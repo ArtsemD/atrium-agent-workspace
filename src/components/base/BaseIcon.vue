@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { PATHS, type IconName } from './icons'
+import { ICON_PATHS, ICON_SIZE, ICON_STROKE_WIDTH } from '@/constants/icons'
+import type { BaseIconProps } from '@/types/ui'
 
-withDefaults(defineProps<{ name: IconName; size?: number }>(), { size: 16 })
+withDefaults(defineProps<BaseIconProps>(), { size: ICON_SIZE.md })
 </script>
 
 <template>
@@ -11,12 +12,12 @@ withDefaults(defineProps<{ name: IconName; size?: number }>(), { size: 16 })
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    stroke-width="1.8"
+    :stroke-width="ICON_STROKE_WIDTH"
     stroke-linecap="round"
     stroke-linejoin="round"
     aria-hidden="true"
     class="shrink-0"
   >
-    <path :d="PATHS[name]" />
+    <path :d="ICON_PATHS[name]" />
   </svg>
 </template>

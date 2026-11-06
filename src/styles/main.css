@@ -24,6 +24,22 @@
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius);
   --radius-lg: var(--radius-lg);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --text-caption: var(--font-size-caption);
+  --text-caption--line-height: var(--line-height-caption);
+  --text-meta: var(--font-size-meta);
+  --text-meta--line-height: var(--line-height-caption);
+  --text-body-sm: var(--font-size-body-sm);
+  --text-body-sm--line-height: var(--line-height-body-sm);
+  --text-body: var(--font-size-body);
+  --text-body--line-height: var(--line-height-body-sm);
+  --text-title: var(--font-size-title);
+  --text-title--line-height: var(--line-height-title);
+  --text-heading: var(--font-size-heading);
+  --text-heading--line-height: var(--line-height-heading);
+  --text-display: var(--font-size-display);
+  --text-display--line-height: var(--line-height-heading);
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
@@ -40,10 +56,11 @@
     color: var(--fg);
     background:
       radial-gradient(60rem 40rem at 10% -10%, var(--backdrop-a), transparent 60%),
-      radial-gradient(50rem 36rem at 100% 110%, var(--backdrop-b), transparent 60%),
-      var(--bg);
+      radial-gradient(50rem 36rem at 100% 110%, var(--backdrop-b), transparent 60%), var(--bg);
     background-attachment: fixed;
-    transition: background-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+    transition:
+      background-color var(--dur) var(--ease-out),
+      color var(--dur) var(--ease-out);
   }
   :focus-visible {
     outline: 2px solid var(--accent);
@@ -66,29 +83,64 @@
     font-variant-numeric: tabular-nums;
   }
   .eyebrow {
-    font-size: 11px;
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-caption);
     font-weight: 600;
-    letter-spacing: 0.06em;
+    letter-spacing: var(--tracking-eyebrow);
     text-transform: uppercase;
     color: var(--fg-3);
   }
 }
 
+@layer components {
+  /* Placeholder that shimmers while content loads */
+  .skeleton {
+    background: linear-gradient(90deg, var(--surface-sunken) 25%, var(--line-strong) 50%, var(--surface-sunken) 75%);
+    background-size: 200% 100%;
+    animation: shimmer var(--dur-shimmer) linear infinite;
+  }
+  /* The agent's presence: a ring that breathes while it works */
+  .presence-ring {
+    animation: pulse-ring var(--dur-presence) var(--ease-out) infinite;
+  }
+  .rise-in {
+    animation: rise var(--dur-rise) var(--ease-out) both;
+  }
+}
+
 @keyframes shimmer {
-  from { background-position: 200% 0; }
-  to { background-position: -200% 0; }
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
 }
 @keyframes pulse-ring {
-  0% { transform: scale(0.85); opacity: 0.7; }
-  100% { transform: scale(1.6); opacity: 0; }
+  0% {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
 }
 @keyframes rise {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 1ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 1ms !important;

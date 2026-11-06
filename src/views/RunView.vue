@@ -56,7 +56,8 @@ onBeforeUnmount(run.stop)
         />
       </section>
 
-      <aside class="grid gap-4">
+      <!-- Sticky on desktop: what the agent can touch and what it costs stay in view through a long run -->
+      <aside class="grid gap-4 lg:sticky lg:top-4">
         <RunAccessCard :access="ACCESS" />
         <RunBudgetCard :team="TEAM" :run-cost-eur="run.costEur.value" />
         <RunModelCard :model="AGENT.model" />

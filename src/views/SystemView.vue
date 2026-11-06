@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import BaseCard from '@/components/base/BaseCard.vue'
-import BaseSkeleton from '@/components/base/BaseSkeleton.vue'
 import EmptyState from '@/components/base/EmptyState.vue'
 import { THEMES } from '@/constants/app'
 import { SAMPLE_STEP_DONE, SAMPLE_STEP_RUNNING, SAMPLE_WRITES } from '@/data/samples'
+import KpiTileSkeleton from '@/features/spend/components/KpiTileSkeleton.vue'
 import ProposedWrites from '@/features/run/components/ProposedWrites.vue'
 import TimelineStep from '@/features/run/components/TimelineStep.vue'
 import ControlsShowcase from '@/features/system/components/ControlsShowcase.vue'
@@ -11,7 +11,7 @@ import ThemePreviewCard from '@/features/system/components/ThemePreviewCard.vue'
 </script>
 
 <template>
-  <div class="grid gap-4">
+  <div class="grid grid-cols-1 gap-4">
     <BaseCard
       title="Themes"
       description="Four themes from one set of semantic tokens. Components only use tokens, so a new theme is one CSS block."
@@ -39,11 +39,7 @@ import ThemePreviewCard from '@/features/system/components/ThemePreviewCard.vue'
 
     <div class="grid gap-4 xl:grid-cols-2">
       <BaseCard title="Loading: same box as the content">
-        <div class="rounded-lg border border-line p-4">
-          <BaseSkeleton class="h-3 w-24" />
-          <BaseSkeleton class="mt-3 h-7 w-28" />
-          <BaseSkeleton class="mt-2 h-4 w-40" />
-        </div>
+        <KpiTileSkeleton />
       </BaseCard>
       <BaseCard title="Empty">
         <EmptyState

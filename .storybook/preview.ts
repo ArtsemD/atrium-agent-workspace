@@ -1,10 +1,15 @@
 import type { Decorator, Preview } from '@storybook/vue3-vite'
+import { useTheme } from '../src/composables/useTheme'
 import { DEFAULT_THEME, THEMES } from '../src/constants/app'
+import type { ThemeId } from '../src/types/app'
 import '../src/styles/main.css'
 
-/** Applies the selected theme the same way the app does, through data-theme on <html> */
+/**
+ * Sets the toolbar theme through useTheme, the app's single source of truth,
+ * so components that read the theme (such as ThemeSwitcher) agree with the canvas
+ */
 const withTheme: Decorator = (story, context) => {
-  document.documentElement.dataset.theme = String(context.globals.theme ?? DEFAULT_THEME)
+  useTheme().theme.value = (context.globals.theme ?? DEFAULT_THEME) as ThemeId
 
   return story()
 }

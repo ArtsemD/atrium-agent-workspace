@@ -9,14 +9,67 @@ Components never use raw values. Every colour, size, duration and font size come
 visual (timings, thresholds, chart geometry) are named constants: in the feature's `constants.ts` when one
 feature uses them, in `src/constants` when several do.
 
-| Rule                                                                                | Enforced by                                   |
-| ----------------------------------------------------------------------------------- | --------------------------------------------- |
-| No Tailwind arbitrary values (`w-[300px]`), no raw colours, no static inline styles | `npm run lint:tokens`                         |
-| Props and emits are typed with interfaces from the feature's `types.ts`             | `vue/define-props-declaration`, review        |
-| Base components start with `Base`, every component name has two words               | `vue/multi-word-component-names`              |
-| Timers use named constants                                                          | `no-restricted-syntax` in `eslint.config.ts`  |
-| Every `if` has braces                                                               | `curly`                                       |
-| Functions are arrow functions with an explicit return type                          | `func-style`, `explicit-function-return-type` |
-| Blank lines separate declarations, blocks and returns                               | `@stylistic/padding-line-between-statements`  |
+{/* A JSX table: Storybook's MDX renders Markdown tables only with remark-gfm */}
+
+<table>
+  <thead>
+    <tr>
+      <th>Rule</th>
+      <th>Enforced by</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        No Tailwind arbitrary values (<code>w-[300px]</code>), no raw colours, no static inline styles
+      </td>
+      <td>
+        <code>npm run lint:tokens</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Props and emits are typed with interfaces from the feature's <code>types.ts</code>
+      </td>
+      <td>
+        <code>vue/define-props-declaration</code>, review
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Base components start with <code>Base</code>, every component name has two words
+      </td>
+      <td>
+        <code>vue/multi-word-component-names</code>
+      </td>
+    </tr>
+    <tr>
+      <td>Timers use named constants</td>
+      <td>
+        <code>no-restricted-syntax</code> in <code>eslint.config.ts</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Every <code>if</code> has braces
+      </td>
+      <td>
+        <code>curly</code>
+      </td>
+    </tr>
+    <tr>
+      <td>Functions are arrow functions with an explicit return type</td>
+      <td>
+        <code>func-style</code>, <code>explicit-function-return-type</code>
+      </td>
+    </tr>
+    <tr>
+      <td>Blank lines separate declarations, blocks and returns</td>
+      <td>
+        <code>@stylistic/padding-line-between-statements</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 Switch the theme from the toolbar: every story renders in light, dark, dusk and sand.

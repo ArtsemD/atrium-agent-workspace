@@ -7,7 +7,7 @@ defineProps<EmptyStateProps>()
 </script>
 
 <template>
-  <div class="flex flex-col items-center px-0 py-4 text-center sm:px-6 sm:py-12">
+  <div class="flex flex-col items-center px-0 py-4 text-center sm:px-6 sm:py-6">
     <div class="mb-4 grid size-11 place-items-center rounded-xl bg-accent-soft text-accent">
       <BaseIcon :name="icon" :size="ICON_SIZE.lg" />
     </div>

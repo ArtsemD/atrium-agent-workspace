@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
-import { ACCESS, AGENT, TEAM } from '@/data/run-script'
+import { ACCESS, AGENT, EUR_PER_MILLION_TOKENS, TEAM } from '@/data/run-script'
 import RunAccessCard from './RunAccessCard.vue'
 import RunBudgetCard from './RunBudgetCard.vue'
 import RunModelCard from './RunModelCard.vue'
@@ -20,12 +20,12 @@ export const Budget: Story = {}
 export const AllCards: Story = {
   render: (args) => ({
     components: { RunAccessCard, RunBudgetCard, RunModelCard },
-    setup: () => ({ args, access: ACCESS, model: AGENT.model }),
+    setup: () => ({ args, access: ACCESS, agent: AGENT, rate: EUR_PER_MILLION_TOKENS }),
     template: `
       <div class="grid gap-4">
         <RunAccessCard :access="access" />
         <RunBudgetCard v-bind="args" />
-        <RunModelCard :model="model" />
+        <RunModelCard :model="agent.model" :gateway="agent.gateway" :eur-per-million-tokens="rate" />
       </div>`,
   }),
 }

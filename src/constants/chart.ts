@@ -1,7 +1,16 @@
-/** Spend chart geometry, in the SVG's own coordinate space (it scales with its container) */
+/**
+ * Spend chart geometry in CSS pixels. The chart is drawn at its container's real width,
+ * so text stays 12px on a phone. Height follows the aspect ratio but never drops below minHeight
+ * (keep in sync with --size-chart-min in tokens.css, which the loading skeleton uses).
+ */
 export const CHART = {
+  /** Width used before the container has been measured */
   width: 1080,
   height: 340,
+  minHeight: 240,
+  /** Below this width the x axis shows fewer dates */
+  compactWidth: 560,
+  compactXTickDays: [1, 15, 30],
   pad: { top: 16, right: 16, bottom: 28, left: 52 },
   yTickStepEur: 1000,
   /** Headroom above the higher of budget and forecast */

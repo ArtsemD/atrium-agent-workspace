@@ -139,7 +139,7 @@
   --size-page: 1440px;
   --size-sidebar: 232px;
   --size-aside: 300px;
-  --size-composer: min(560px, 80vw);
+  --size-composer: 560px;
   --size-run-panel: 480px;
   --size-table-min: 640px;
   --size-meter-col: 44%;
@@ -150,6 +150,7 @@
   --layout-timeline: 2rem minmax(0, 1fr);
   --layout-write-row: minmax(0, 1fr) auto;
   --chart-aspect: 1080 / 340;
+  --size-chart-min: 240px;
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);

@@ -38,7 +38,7 @@ onBeforeUnmount(run.stop)
     />
 
     <div class="grid items-start gap-4 lg:grid-cols-(--layout-run)">
-      <section class="panel min-h-(--size-run-panel) p-5" aria-labelledby="run-title">
+      <section class="panel p-4 sm:p-5 lg:min-h-(--size-run-panel)" aria-labelledby="run-title">
         <template v-if="state.status === 'idle'">
           <h2 id="run-title" class="sr-only">New run</h2>
           <RunComposer :agent-name="AGENT.name" :default-task="DEFAULT_TASK" @start="run.start" />

@@ -7,7 +7,7 @@ defineProps<RunStatsProps>()
 
 <template>
   <!-- Fixed widths and tabular figures, so the numbers tick without moving their neighbours -->
-  <dl class="m-0 flex gap-6 text-body">
+  <dl class="m-0 flex gap-5 text-body sm:gap-6">
     <div>
       <dt class="eyebrow">Tokens</dt>
       <dd class="num m-0 mt-0.5 w-16 font-semibold text-fg">{{ formatTokens(tokens) }}</dd>

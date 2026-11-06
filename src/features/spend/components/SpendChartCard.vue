@@ -17,7 +17,7 @@ const onTrack = computed(() => isOnTrack(props.forecast, props.budgetEur))
     <template #actions>
       <BaseBadge :tone="onTrack ? 'ok' : 'warn'" dot>{{ onTrack ? 'On track' : 'Over budget' }}</BaseBadge>
     </template>
-    <BaseSkeleton v-if="loading" class="aspect-(--chart-aspect) w-full" />
+    <BaseSkeleton v-if="loading" class="aspect-(--chart-aspect) min-h-(--size-chart-min) w-full" />
     <SpendChart v-else :month="month" :actual="actual" :forecast="forecast" :budget-eur="budgetEur" />
   </BaseCard>
 </template>

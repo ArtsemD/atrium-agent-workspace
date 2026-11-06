@@ -8,30 +8,45 @@ import { fileURLToPath } from 'node:url'
 
 const ROOT = fileURLToPath(new URL('../src', import.meta.url))
 const TOKEN_FILE = 'styles/tokens.css'
+
 const RULES = [
   { name: 'Tailwind arbitrary value', re: /(?<![\w-])[a-z][\w:-]*-\[[^\]]+\]/g, in: /\.(vue|ts)$/ },
   { name: 'raw colour', re: /#[0-9a-f]{3,8}\b|\b(rgb|hsl)a?\(/gi, in: /\.(vue|ts|css)$/ },
   { name: 'static inline style', re: /(?<!:)\bstyle="/g, in: /\.vue$/ },
 ]
 
-function* walk(dir) {
-  for (const name of readdirSync(dir)) {
+/**
+ * Every file under dir, depth first
+ * @param {string} dir
+ * @returns {string[]}
+ */
+const walk = (dir) =>
+  readdirSync(dir).flatMap((name) => {
     const path = join(dir, name)
-    if (statSync(path).isDirectory()) yield* walk(path)
-    else yield path
-  }
-}
+
+    return statSync(path).isDirectory() ? walk(path) : [path]
+  })
 
 const problems = []
+
 for (const file of walk(ROOT)) {
   const rel = relative(ROOT, file)
-  if (rel === TOKEN_FILE || rel.endsWith('.test.ts')) continue
+
+  if (rel === TOKEN_FILE || rel.endsWith('.test.ts')) {
+    continue
+  }
+
   readFileSync(file, 'utf8')
     .split('\n')
     .forEach((line, i) => {
       for (const rule of RULES) {
-        if (!rule.in.test(file)) continue
-        for (const m of line.matchAll(rule.re)) problems.push(`src/${rel}:${i + 1}  ${rule.name}: ${m[0]}`)
+        if (!rule.in.test(file)) {
+          continue
+        }
+
+        for (const m of line.matchAll(rule.re)) {
+          problems.push(`src/${rel}:${i + 1}  ${rule.name}: ${m[0]}`)
+        }
       }
     })
 }
@@ -43,4 +58,5 @@ if (problems.length) {
   )
   process.exit(1)
 }
+
 console.log('Design tokens: OK')

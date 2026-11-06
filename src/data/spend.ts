@@ -13,15 +13,18 @@ export const ACTUAL: readonly number[] = [
 const FORECAST_MODEL: ForecastModel = { perDayEur: 78, spreadLinear: 9, spreadQuadratic: 1.6 }
 
 /** Forecast for the rest of the month. The band widens with distance from today: we know less about later days. */
-export function forecast(model: ForecastModel = FORECAST_MODEL): ForecastPoint[] {
+export const forecast = (model: ForecastModel = FORECAST_MODEL): ForecastPoint[] => {
   const last = ACTUAL.at(-1) ?? 0
   const out: ForecastPoint[] = []
+
   for (let day = MONTH.today; day <= MONTH.days; day++) {
     const ahead = day - MONTH.today
     const mid = last + model.perDayEur * ahead
     const spread = model.spreadLinear * ahead + model.spreadQuadratic * ahead ** 2
+
     out.push({ day, mid, low: mid - spread, high: mid + spread })
   }
+
   return out
 }
 

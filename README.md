@@ -83,7 +83,7 @@ src/
   stories/            Foundations: rules, colour tokens, type scale
 ```
 
-Conventions follow the Vue style guide: multi-word component names, a `Base` prefix for the shared kit, `<script setup>` with type-based props and emits. Components are presentational where they can be: they take data through props and report back through emits, so each one has stories for its states. ESLint enforces the conventions.
+Conventions follow the Vue style guide: multi-word component names, a `Base` prefix for the shared kit, `<script setup>` with type-based props and emits. Components are presentational where they can be: they take data through props and report back through emits, so each one has stories for its states. Code style: every `if` has braces, functions are arrow functions with an explicit return type (composables return interfaces from `src/types`), and blank lines separate declarations, blocks and returns. ESLint enforces all of it.
 
 ## Stack
 

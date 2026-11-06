@@ -5,6 +5,7 @@ import '../src/styles/main.css'
 /** Applies the selected theme the same way the app does, through data-theme on <html> */
 const withTheme: Decorator = (story, context) => {
   document.documentElement.dataset.theme = String(context.globals.theme ?? DEFAULT_THEME)
+
   return story()
 }
 

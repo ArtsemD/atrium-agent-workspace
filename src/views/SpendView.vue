@@ -10,6 +10,7 @@ import { buildKpis } from '@/features/spend/utils/spend-metrics'
 const { loading } = useSimulatedLoading(SPEND_LOADING_MS)
 
 const FORECAST = forecast()
+
 const KPIS = buildKpis({
   actual: ACTUAL,
   forecast: FORECAST,

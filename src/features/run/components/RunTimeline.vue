@@ -8,7 +8,7 @@ const props = defineProps<RunTimelineProps>()
 const emit = defineEmits<RunTimelineEmits>()
 
 // The line under the last step continues while the run waits for approval
-const isLast = (index: number) => index === props.steps.length - 1 && props.status !== 'awaiting-approval'
+const isLast = (index: number): boolean => index === props.steps.length - 1 && props.status !== 'awaiting-approval'
 </script>
 
 <template>

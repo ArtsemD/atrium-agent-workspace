@@ -45,6 +45,7 @@ describe('chart geometry', () => {
 
   it('reads actual spend up to today and the forecast after it', () => {
     const forecast = [{ day: 3, mid: 30, low: 25, high: 35 }]
+
     expect(hoverPointAt(2, [10, 20], forecast)).toMatchObject({ kind: 'spent', value: 20 })
     expect(hoverPointAt(3, [10, 20], forecast)).toMatchObject({ kind: 'forecast', range: [25, 35] })
   })

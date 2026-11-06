@@ -8,11 +8,14 @@ Components never use raw values. Every colour, size, duration and font size come
 `src/styles/tokens.css`, mapped to Tailwind utilities in `src/styles/main.css`. Numbers that are not
 visual (timings, thresholds, chart geometry) are named constants in `src/constants`.
 
-| Rule                                                                                | Enforced by                                  |
-| ----------------------------------------------------------------------------------- | -------------------------------------------- |
-| No Tailwind arbitrary values (`w-[300px]`), no raw colours, no static inline styles | `npm run lint:tokens`                        |
-| Props and emits are typed with interfaces from `src/types`                          | `vue/define-props-declaration`, review       |
-| Base components start with `Base`, every component name has two words               | `vue/multi-word-component-names`             |
-| Timers use named constants                                                          | `no-restricted-syntax` in `eslint.config.ts` |
+| Rule                                                                                | Enforced by                                   |
+| ----------------------------------------------------------------------------------- | --------------------------------------------- |
+| No Tailwind arbitrary values (`w-[300px]`), no raw colours, no static inline styles | `npm run lint:tokens`                         |
+| Props and emits are typed with interfaces from `src/types`                          | `vue/define-props-declaration`, review        |
+| Base components start with `Base`, every component name has two words               | `vue/multi-word-component-names`              |
+| Timers use named constants                                                          | `no-restricted-syntax` in `eslint.config.ts`  |
+| Every `if` has braces                                                               | `curly`                                       |
+| Functions are arrow functions with an explicit return type                          | `func-style`, `explicit-function-return-type` |
+| Blank lines separate declarations, blocks and returns                               | `@stylistic/padding-line-between-statements`  |
 
 Switch the theme from the toolbar: every story renders in light, dark, dusk and sand.

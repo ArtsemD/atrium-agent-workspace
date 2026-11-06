@@ -17,8 +17,10 @@ const width = useElementWidth(container)
 const { frame, scales, paths, yTicks, xTickDays, today, summary } = useSpendChart(props, width)
 const { hover, tooltipStyle, onPointerMove, onPointerLeave } = useChartHover(props, frame, scales)
 
-const tickAnchor = (day: number) => (day === 1 ? 'start' : day === props.month.days ? 'end' : 'middle')
-const tickLabel = (eur: number) => (eur === 0 ? '€0' : `€${eur / CHART.yTickStepEur}k`)
+const tickAnchor = (day: number): 'start' | 'middle' | 'end' =>
+  day === 1 ? 'start' : day === props.month.days ? 'end' : 'middle'
+
+const tickLabel = (eur: number): string => (eur === 0 ? '€0' : `€${eur / CHART.yTickStepEur}k`)
 </script>
 
 <template>

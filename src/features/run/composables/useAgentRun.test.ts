@@ -2,15 +2,20 @@ import { describe, expect, it } from 'vitest'
 import { nextTick } from 'vue'
 import { useAgentRun } from '@/features/run/composables/useAgentRun'
 
-const instant = () => Promise.resolve()
-const flush = async () => {
-  for (let i = 0; i < 200; i++) await Promise.resolve()
+const instant = (): Promise<void> => Promise.resolve()
+
+const flush = async (): Promise<void> => {
+  for (let i = 0; i < 200; i++) {
+    await Promise.resolve()
+  }
+
   await nextTick()
 }
 
 describe('useAgentRun', () => {
   it('pauses at proposed writes and writes nothing until a person decides', async () => {
     const run = useAgentRun(undefined, instant)
+
     void run.start('Reconcile invoices')
     await flush()
 
@@ -26,6 +31,7 @@ describe('useAgentRun', () => {
 
   it('applies only the approved writes', async () => {
     const run = useAgentRun(undefined, instant)
+
     void run.start('Reconcile invoices')
     await flush()
 
@@ -36,6 +42,7 @@ describe('useAgentRun', () => {
     await flush()
 
     const apply = run.state.steps.find((s) => s.kind === 'apply')
+
     expect(apply?.title).toBe('Wrote 2 approved changes to the ERP')
     expect(apply?.detail).not.toContain('Nordlicht Logistik')
     expect(run.state.status).toBe('completed')
@@ -43,6 +50,7 @@ describe('useAgentRun', () => {
 
   it('counts tokens and cost across every step', async () => {
     const run = useAgentRun(undefined, instant)
+
     void run.start('Reconcile invoices')
     await flush()
     run.decideAll('rejected')
@@ -55,8 +63,14 @@ describe('useAgentRun', () => {
 
   it('stop() ends a live run and a stale run cannot write into a new one', async () => {
     let release!: () => void
-    const gated = () => new Promise<void>((r) => (release = r))
+
+    const gated = (): Promise<void> =>
+      new Promise<void>((r) => {
+        release = r
+      })
+
     const run = useAgentRun(undefined, gated)
+
     void run.start('first')
     run.stop()
     expect(run.state.status).toBe('stopped')
@@ -70,6 +84,7 @@ describe('useAgentRun', () => {
 
   it('only lets a completed run be rated, and toggles the rating', async () => {
     const run = useAgentRun(undefined, instant)
+
     run.rate('useful')
     expect(run.state.rating).toBeNull()
 
